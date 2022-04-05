@@ -1,28 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".view.MainActivity">
 
+    <ImageView
+        android:id="@+id/image_click"
+        android:layout_width="100dp"
+        android:layout_height="360dp"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/score_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp"
+        android:src="@drawable/egg"/>
 
     <TextView
         android:id="@+id/score_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/double_need"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_click"
         android:text="0"
-        android:textSize="50dp"
-         />
+        android:textSize="50dp"/>
+
+    <TextView
+        android:id="@+id/double_need"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/click_add"
+        app:layout_constraintTop_toBottomOf="@id/score_text"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:text="10"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/click_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/double_need"
+        app:layout_constraintTop_toBottomOf="@id/score_text"
+        android:text="(+1)"
+        android:textSize="20dp" />
+
     <Button
         android:id="@+id/button_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="button"
-        android:textSize="25dp" />
+        app:layout_constraintBottom_toTopOf="@id/button_clear"
+        app:layout_constraintTop_toBottomOf="@id/click_add"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:backgroundTint="@color/teal_200"
+        android:text="upgrade"
+        android:textSize="25dp"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/button_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_add"
+        android:backgroundTint="@color/teal_200"
+        android:text="clear"
+        android:textAllCaps="true"
+        android:textSize="15dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

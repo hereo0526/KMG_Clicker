@@ -6,12 +6,34 @@ import com.example.newapp.view.MainActivity;
 public class MainPresenter {
 
     MainModel model = new MainModel();
-    MainActivity view;
-    public String changeText(){
-        view = new MainActivity();
-        model.changeScore();
-        //view.showText(Integer.toString(model.getScore()));
-        return Integer.toString(model.getScore());
+
+    public void addScore(){
+        model.addScore();
+    }
+    public int  getScore(){
+        return model.getScore();
+    }
+    public void setScore(int i){
+        model.setScore(i);
     }
 
+    public void addIncrease(){
+        model.addIncrease();
+    }
+    public int  getIncrease(){
+        return model.getIncrease();
+    }
+    public void setIncrease(int i){
+        model.setIncrease(i);
+    }
+
+    public void addDoubleNeed(){
+        model.addDoubleNeed();
+    }
+    public int  getDoubleNeed(){
+        return model.getDoubleNeed();
+    }
+    public void setDoubleNeed(int i){
+        model.setDoubleNeed(i);
+    }
 }
