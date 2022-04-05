@@ -3,11 +3,15 @@ package com.example.newapp.model;
 public class MainModel {
 
     private int score = 0;
-    private int mul = 1;
+    private int increase = 1;
     private int double_need = 10;
 
+    private int saved_score;
+    private int saved_increase;
+    private int saved_double_need;
+
     public void addScore(){
-        this.score += mul;
+        this.score += increase;
     }
     public int  getScore(){
         return this.score;
@@ -17,13 +21,13 @@ public class MainModel {
     }
 
     public void addIncrease(){
-        this.mul = this.mul*2 + 1;
+        this.increase = this.increase*2 + 1;
     }
     public int  getIncrease(){
-        return this.mul;
+        return this.increase;
     }
     public void setIncrease(int mul){
-        this.mul = mul;
+        this.increase = mul;
     }
 
     public void addDoubleNeed(){

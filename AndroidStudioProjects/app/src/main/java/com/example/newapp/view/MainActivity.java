@@ -3,6 +3,8 @@ package com.example.newapp.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -23,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private Button button_add;
     private Button button_clear;
 
+    private int saved_score = 0;
+    private int saved_increase = 0;
+    private int saved_double_need = 0;
+
     MainPresenter presenter = new MainPresenter();
     Animation animation;
 
@@ -30,6 +36,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences pref = getSharedPreferences("preferences", Activity.MODE_PRIVATE);
+
+        if( (pref != null) && (pref.contains("score")) ) {
+            saved_score = pref.getInt("score", 0);
+            presenter.setScore(saved_score);
+            setTextScore(Integer.toString(saved_score));
+        }
+        if( (pref != null) && (pref.contains("increase")) ) {
+            saved_increase = pref.getInt("increase", 1);
+             presenter.setIncrease(saved_increase);
+             setTextIncrease(Integer.toString(saved_increase));
+        }
+        if( (pref != null) && (pref.contains("double_need")) ) {
+            saved_double_need = pref.getInt("double_need", 10);
+            presenter.setDoubleNeed(saved_double_need);
+            setTextDoubleNeed(Integer.toString(saved_double_need));
+        }
 
         image_click = findViewById(R.id.image_click);
         score_text = findViewById(R.id.score_text);
@@ -79,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
                 setTextAll();
             }
         });
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences pref = getSharedPreferences("preferences", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt("score", presenter.getScore() );
+        editor.putInt("double_need", presenter.getDoubleNeed() );
+        editor.putInt("increase", presenter.getIncrease() );
+        editor.commit();
     }
     public void setTextScore(String s){
         score_text.setText(s);
