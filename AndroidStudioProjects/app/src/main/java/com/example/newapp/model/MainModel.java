@@ -6,10 +6,6 @@ public class MainModel {
     private int increase = 1;
     private int double_need = 10;
 
-    private int saved_score;
-    private int saved_increase;
-    private int saved_double_need;
-
     public void addScore(){
         this.score += increase;
     }
