@@ -36,4 +36,14 @@ public class MainPresenter {
     public void setDoubleNeed(int i){
         model.setDoubleNeed(i);
     }
+
+    public void addScoreCrit(){
+        model.addScoreCrit();
+    }
+    public int flagCrit(){
+        return model.flagCrit();
+    }
+    public int getCrit(){
+        return model.getCrit();
+    }
 }

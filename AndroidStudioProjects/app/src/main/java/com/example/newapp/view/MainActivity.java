@@ -16,17 +16,21 @@ import android.widget.TextView;
 import com.example.newapp.R;
 import com.example.newapp.presenter.MainPresenter;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
+
+    DecimalFormat formatter = new DecimalFormat("###,###");
 
     private ImageView image_click;
     private TextView score_text;
+    private TextView critical_text;
     private TextView double_need;
     private TextView click_add;
-    private Button button_add;
-    private Button button_clear;
 
     MainPresenter presenter = new MainPresenter();
-    Animation animation;
+    Animation animation_pop;
+    Animation animation_critical;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +39,18 @@ public class MainActivity extends AppCompatActivity {
 
         image_click = findViewById(R.id.image_click);
         score_text = findViewById(R.id.score_text);
+        critical_text = findViewById(R.id.critical_text);
         double_need = findViewById(R.id.double_need);
         click_add = findViewById(R.id.click_add);
-        button_add = findViewById(R.id.button_add);
-        button_clear = findViewById(R.id.button_clear);
 
-        animation = AnimationUtils.loadAnimation(this, R.anim.pop);
+        animation_pop = AnimationUtils.loadAnimation(this, R.anim.pop);
+        animation_critical = AnimationUtils.loadAnimation(this, R.anim.critical);
 
         SharedPreferences pref_get = getSharedPreferences("preferences", MODE_PRIVATE);
         if( (pref_get != null) && (pref_get.contains("score")) ) {
             int saved_score = pref_get.getInt("score", 0);
             presenter.setScore(saved_score);
-            setTextScore(Integer.toString(saved_score));
+            setTextScore(formatter.format(saved_score));
         }
         if( (pref_get != null) && (pref_get.contains("increase")) ) {
             int saved_increase = pref_get.getInt("increase", 1);
@@ -59,46 +63,22 @@ public class MainActivity extends AppCompatActivity {
             presenter.setDoubleNeed(saved_double_need);
             setTextDoubleNeed(Integer.toString(saved_double_need));
         }
-
+        ////////////////////////////////////////////////////////////////////////////////////////////
         image_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presenter.addScore();
-                String str_change = Integer.toString(presenter.getScore());
-                setTextScore(str_change);
-                image_click.startAnimation(animation);
-            }
-        });
-        button_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(presenter.getScore() >= presenter.getDoubleNeed()) {
-                    presenter.setScore(presenter.getScore() - presenter.getDoubleNeed());
-                    presenter.addIncrease();
-                    presenter.addDoubleNeed();
-                    setTextAll();
-                    image_click.getLayoutParams().width += 20;
-                    if(image_click.getLayoutParams().width >= 400)
-                    {
-                        image_click.setImageResource(R.drawable.buhwa);
-                        image_click.getLayoutParams().width += 100;
-                    }
+                presenter.addScoreCrit();
+                if(presenter.flagCrit() == 1){
+                    critical_text.setVisibility(View.VISIBLE);
+                    critical_text.startAnimation(animation_critical);
+                    critical_text.setVisibility(View.INVISIBLE);
                 }
+                setTextScore(formatter.format(presenter.getScore()));
+                image_click.startAnimation(animation_pop);
             }
         });
-        button_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.setScore(0);
-                presenter.setIncrease(1);
-                presenter.setDoubleNeed(10);
 
-                image_click.getLayoutParams().width = 264;
-                image_click.setImageResource(R.drawable.egg);
-
-                setTextAll();
-            }
-        });
     }
     @Override
     protected void onStop() {
@@ -122,11 +102,8 @@ public class MainActivity extends AppCompatActivity {
         double_need.setText(s);
     }
     public void setTextAll(){
-        String str_score = Integer.toString(presenter.getScore());
-        setTextScore(str_score);
-        String str_increase = Integer.toString(presenter.getIncrease());
-        setTextIncrease("("+'+'+str_increase+')');
-        String str_doubleNeed = Integer.toString(presenter.getDoubleNeed());
-        setTextDoubleNeed(str_doubleNeed);
+        setTextScore(formatter.format(presenter.getScore()));
+        setTextIncrease("("+'+'+formatter.format(presenter.getIncrease())+')');
+        setTextDoubleNeed(formatter.format(presenter.getDoubleNeed()));
     }
 }
