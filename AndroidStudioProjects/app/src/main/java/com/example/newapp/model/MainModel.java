@@ -1,15 +1,23 @@
 package com.example.newapp.model;
 
+import android.content.Intent;
+
+import com.example.newapp.view.UpgradeActivity;
+
 import java.util.Random;
 
 public class MainModel {
 
+/////////////////////////////////////////////////////////////////////////
     private int score = 0;
     private int increase = 1;
     private int double_need = 10;
-    private int critical = 1;
-    private int critical_increase;
-    private int critical_check;
+
+    private int critical_ratio = 1;
+    private int critical_increase = 1;
+
+    private int critical_check = 0;
+/////////////////////////////////////////////////////////////////////////
 
     public void addScore(){
         this.score += increase;
@@ -41,10 +49,17 @@ public class MainModel {
         this.double_need = double_need;
     }
 
+    public int getCritRatio(){
+        return this.critical_ratio;
+    }
+    public int getCritIncrease(){
+        return this.critical_increase;
+    }
+
     public void addScoreCrit(){
         Random random = new Random();
-        if(random.nextInt(100) <= 50){
-            score += critical;
+        if(random.nextInt(100) <= critical_ratio){
+            score += critical_increase;
             critical_check = 1;
         }
     }
@@ -55,11 +70,5 @@ public class MainModel {
         }
         else
             return 0;
-    }
-    public int getCrit(){
-        return critical;
-    }
-    public void setCrit(){
-        critical = increase + critical_increase;
     }
 }

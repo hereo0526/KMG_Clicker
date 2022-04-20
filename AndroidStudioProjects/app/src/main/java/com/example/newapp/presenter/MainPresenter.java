@@ -37,13 +37,17 @@ public class MainPresenter {
         model.setDoubleNeed(i);
     }
 
+    public int getCritRatio(){
+        return model.getCritRatio();
+    }
+    public int getCritIncrease(){
+        return model.getCritIncrease();
+    }
+
     public void addScoreCrit(){
         model.addScoreCrit();
     }
     public int flagCrit(){
         return model.flagCrit();
-    }
-    public int getCrit(){
-        return model.getCrit();
     }
 }

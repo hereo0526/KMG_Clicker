@@ -66,5 +66,17 @@
         app:layout_constraintLeft_toRightOf="@id/double_need"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/score_text" />
+    <Button
+        android:id="@+id/button_upgrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/teal_200"
+        android:text="upgrade"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/click_add"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

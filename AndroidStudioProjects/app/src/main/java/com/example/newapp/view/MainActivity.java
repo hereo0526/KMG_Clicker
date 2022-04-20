@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.newapp.R;
+import com.example.newapp.model.MainModel;
 import com.example.newapp.presenter.MainPresenter;
 
 import java.text.DecimalFormat;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView critical_text;
     private TextView double_need;
     private TextView click_add;
+    private Button button_upgrade;
 
     MainPresenter presenter = new MainPresenter();
     Animation animation_pop;
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         critical_text = findViewById(R.id.critical_text);
         double_need = findViewById(R.id.double_need);
         click_add = findViewById(R.id.click_add);
+        button_upgrade = findViewById(R.id.button_upgrade);
 
         animation_pop = AnimationUtils.loadAnimation(this, R.anim.pop);
         animation_critical = AnimationUtils.loadAnimation(this, R.anim.critical);
@@ -78,7 +82,18 @@ public class MainActivity extends AppCompatActivity {
                 image_click.startAnimation(animation_pop);
             }
         });
-
+        button_upgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UpgradeActivity.class);
+                intent.putExtra("score", presenter.getScore());
+                intent.putExtra("increase", presenter.getIncrease());
+                intent.putExtra("double_need", presenter.getDoubleNeed());
+                intent.putExtra("critical_ratio", presenter.getCritRatio());
+                intent.putExtra("critical_increase", presenter.getCritIncrease());
+                startActivity(intent);
+            }
+        });
     }
     @Override
     protected void onStop() {
