@@ -9,8 +9,8 @@ public class UpgradeModel{
     private int critical_ratio = 1;
     private int critical_ratio_need = 10;
 
-    private int critical_increase_need = 10;
     private int critical_increase = 1;
+    private int critical_increase_need = 10;
 
     public void addScore(){
         this.score += increase;

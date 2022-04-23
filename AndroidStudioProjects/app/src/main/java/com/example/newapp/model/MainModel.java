@@ -49,11 +49,24 @@ public class MainModel {
         this.double_need = double_need;
     }
 
-    public int getCritRatio(){
+    public void addCritRatio(){
+        this.critical_ratio += 1;
+    }
+    public int  getCritRatio(){
         return this.critical_ratio;
     }
-    public int getCritIncrease(){
+    public void setCritRatio(int critical_ratio){
+        this.critical_ratio = critical_ratio;
+    }
+
+    public void addCritIncrease(){
+        this.critical_increase += 1;
+    }
+    public int  getCritIncrease(){
         return this.critical_increase;
+    }
+    public void setCritIncrease(int critical_increase){
+        this.critical_increase = critical_increase;
     }
 
     public void addScoreCrit(){

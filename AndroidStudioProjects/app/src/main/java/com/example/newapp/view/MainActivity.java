@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         animation_pop = AnimationUtils.loadAnimation(this, R.anim.pop);
         animation_critical = AnimationUtils.loadAnimation(this, R.anim.critical);
 
+
         SharedPreferences pref_get = getSharedPreferences("preferences", MODE_PRIVATE);
         if( (pref_get != null) && (pref_get.contains("score")) ) {
             int saved_score = pref_get.getInt("score", 0);
@@ -92,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("critical_ratio", presenter.getCritRatio());
                 intent.putExtra("critical_increase", presenter.getCritIncrease());
                 startActivity(intent);
+                Intent intent_up = getIntent();
+                presenter.setScore(intent_up.getExtras().getInt("score_up"));
+                presenter.setIncrease(intent_up.getExtras().getInt("increase_up"));
+                presenter.setDoubleNeed(intent_up.getExtras().getInt("double_need_up"));
+                presenter.setCritRatio(intent_up.getExtras().getInt("critical_ratio_up"));
+                presenter.setCritIncrease(intent_up.getExtras().getInt("critical_increase_up"));
             }
         });
     }

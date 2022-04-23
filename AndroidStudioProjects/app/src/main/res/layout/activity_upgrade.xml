@@ -22,19 +22,15 @@
         android:id="@+id/button_add_increase"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button"
         android:text="클릭 점수+a"
         android:textSize="20dp"
-        android:textStyle="bold"
-        app:elevation="10dp"
-        android:translationZ="10dp"
-        android:stateListAnimator="@null"
+        android:backgroundTint="@color/teal_200"
         app:layout_constraintBottom_toTopOf="@id/button_critical_ratio"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/add_increase_text"
+        app:layout_constraintRight_toLeftOf="@id/double_need_text"
         app:layout_constraintTop_toBottomOf="@+id/score_text_upgrade" />
     <TextView
-        android:id="@+id/add_increase_text"
+        android:id="@+id/double_need_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -47,7 +43,7 @@
         android:id="@+id/button_critical_ratio"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#ccffdd"
+        android:backgroundTint="@color/teal_200"
         android:text="크리티컬 확률+a"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -99,6 +95,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_critical_increase"
+        />
+    <ImageView
+        android:id="@+id/image_back"
+        android:src="@drawable/back"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_clear"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
