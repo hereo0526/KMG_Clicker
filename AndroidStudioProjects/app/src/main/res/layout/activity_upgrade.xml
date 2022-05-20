@@ -15,74 +15,79 @@
         android:textSize="50dp"
         android:layout_margin="100dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/button_add_increase"
+        app:layout_constraintBottom_toTopOf="@id/inc_need_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/inc_need_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="116dp"
+        android:text="0"
+        android:textSize="50dp"
+        app:layout_constraintBottom_toTopOf="@id/crit_ratio_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_add_inc" />
+
     <Button
-        android:id="@+id/button_add_increase"
+        android:id="@+id/button_add_inc"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="클릭 점수+a"
         android:textSize="20dp"
         android:backgroundTint="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@id/button_critical_ratio"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/double_need_text"
-        app:layout_constraintTop_toBottomOf="@+id/score_text_upgrade" />
+        app:layout_constraintTop_toTopOf="@+id/inc_need_text"
+        app:layout_constraintBottom_toBottomOf="@+id/inc_need_text"
+        app:layout_constraintLeft_toRightOf="@id/inc_need_text"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
     <TextView
-        android:id="@+id/double_need_text"
+        android:id="@+id/crit_ratio_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:textSize="50dp"
-        app:layout_constraintTop_toTopOf="@+id/button_add_increase"
-        app:layout_constraintBottom_toBottomOf="@id/button_add_increase"
-        app:layout_constraintLeft_toRightOf="@id/button_add_increase"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/inc_need_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_crit_ratio"/>
     <Button
-        android:id="@+id/button_critical_ratio"
+        android:id="@+id/button_crit_ratio"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/teal_200"
-        android:text="크리티컬 확률+a"
+        android:text="크리티컬 1%"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_margin="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/critical_ratio_text"
-        app:layout_constraintTop_toBottomOf="@id/button_add_increase"/>
+        app:layout_constraintLeft_toRightOf="@id/crit_ratio_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/crit_ratio_text"
+        app:layout_constraintBottom_toBottomOf="@+id/crit_ratio_text"/>
+<!--
     <TextView
-        android:id="@+id/critical_ratio_text"
+        android:id="@+id/crit_inc_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:textSize="50dp"
-        app:layout_constraintTop_toTopOf="@+id/button_critical_ratio"
-        app:layout_constraintBottom_toBottomOf="@id/button_critical_ratio"
-        app:layout_constraintLeft_toRightOf="@id/button_critical_ratio"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/crit_ratio_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_add_inc"/>
     <Button
-        android:id="@+id/button_critical_increase"
+        android:id="@+id/button_crit_inc"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/teal_200"
-        android:text="크리티컬 점수+a"
+        android:text="크리티컬 점수+1"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_margin="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/critical_increase_text"
-        app:layout_constraintTop_toBottomOf="@id/button_critical_ratio"/>
-    <TextView
-        android:id="@+id/critical_increase_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="50dp"
-        app:layout_constraintTop_toTopOf="@+id/button_critical_increase"
-        app:layout_constraintBottom_toBottomOf="@id/button_critical_increase"
-        app:layout_constraintLeft_toRightOf="@id/button_critical_increase"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintLeft_toRightOf="@id/crit_inc_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_crit_ratio"/>
+-->
     <Button
         android:id="@+id/button_clear"
         android:layout_width="wrap_content"
@@ -94,7 +99,7 @@
         android:layout_margin="70dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_critical_increase"
+        app:layout_constraintTop_toBottomOf="@id/button_crit_ratio"
         />
     <ImageView
         android:id="@+id/image_back"

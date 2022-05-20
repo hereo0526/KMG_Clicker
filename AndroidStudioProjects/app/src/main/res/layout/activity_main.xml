@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/image_click"
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="360dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"

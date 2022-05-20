@@ -10,17 +10,17 @@ public class MainModel {
 
 /////////////////////////////////////////////////////////////////////////
     private int score = 0;
-    private int increase = 1;
+    private int inc = 1;
     private int double_need = 10;
 
-    private int critical_ratio = 1;
-    private int critical_increase = 1;
+    private int crit_ratio = 1;
+    private int crit_inc = 1;
 
-    private int critical_check = 0;
+    private int crit_check = 0;
 /////////////////////////////////////////////////////////////////////////
 
     public void addScore(){
-        this.score += increase;
+        this.score += inc;
     }
     public int  getScore(){
         return this.score;
@@ -29,14 +29,14 @@ public class MainModel {
         this.score = score;
     }
 
-    public void addIncrease(){
-        this.increase += 1;
+    public void addInc(){
+        this.inc += 1;
     }
-    public int  getIncrease(){
-        return this.increase;
+    public int  getInc(){
+        return this.inc;
     }
-    public void setIncrease(int mul){
-        this.increase = mul;
+    public void setInc(int mul){
+        this.inc = mul;
     }
 
     public void addDoubleNeed(){
@@ -50,35 +50,35 @@ public class MainModel {
     }
 
     public void addCritRatio(){
-        this.critical_ratio += 1;
+        this.crit_ratio += 1;
     }
     public int  getCritRatio(){
-        return this.critical_ratio;
+        return this.crit_ratio;
     }
-    public void setCritRatio(int critical_ratio){
-        this.critical_ratio = critical_ratio;
+    public void setCritRatio(int crit_ratio){
+        this.crit_ratio = crit_ratio;
     }
 
-    public void addCritIncrease(){
-        this.critical_increase += 1;
+    public void addCritInc(){
+        this.crit_inc += 1;
     }
-    public int  getCritIncrease(){
-        return this.critical_increase;
+    public int  getCritInc(){
+        return this.crit_inc;
     }
-    public void setCritIncrease(int critical_increase){
-        this.critical_increase = critical_increase;
+    public void setCritInc(int crit_inc){
+        this.crit_inc = crit_inc;
     }
 
     public void addScoreCrit(){
         Random random = new Random();
-        if(random.nextInt(100) <= critical_ratio){
-            score += critical_increase;
-            critical_check = 1;
+        if(random.nextInt(100) <= crit_ratio){
+            score += inc*2;
+            crit_check = 1;
         }
     }
     public int flagCrit(){
-        if(critical_check == 1){
-            critical_check = 0;
+        if(crit_check == 1){
+            crit_check = 0;
             return 1;
         }
         else

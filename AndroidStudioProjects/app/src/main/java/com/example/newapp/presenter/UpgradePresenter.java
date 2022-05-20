@@ -15,24 +15,24 @@ public class UpgradePresenter {
         model.setScore(i);
     }
 
-    public void addIncrease(){
-        model.addIncrease();
+    public void addInc(){
+        model.addInc();
     }
-    public int  getIncrease(){
-        return model.getIncrease();
+    public int  getInc(){
+        return model.getInc();
     }
-    public void setIncrease(int i){
-        model.setIncrease(i);
+    public void setInc(int i){
+        model.setInc(i);
     }
 
-    public void addDoubleNeed(){
-        model.addDoubleNeed();
+    public void addIncNeed(){
+        model.addIncNeed();
     }
-    public int  getDoubleNeed(){
-        return model.getDoubleNeed();
+    public int  getIncNeed(){
+        return model.getIncNeed();
     }
-    public void setDoubleNeed(int i){
-        model.setDoubleNeed(i);
+    public void setIncNeed(int i){
+        model.setIncNeed(i);
     }
 
     public void addCritRatio(){
@@ -45,13 +45,33 @@ public class UpgradePresenter {
         model.setCritRatio(i);
     }
 
-    public void addCritIncrease(){
-        model.addCritIncrease();
+    public void addCritRatioNeed(){
+        model.addCritRatioNeed();
     }
-    public int  getCritIncrease(){
-        return model.getCritIncrease();
+    public int  getCritRatioNeed(){
+        return model.getCritRatioNeed();
     }
-    public void setCritIncrease(int i){
-        model.setCritIncrease(i);
+    public void setCritRatioNeed(int i){
+        model.setCritRatioNeed(i);
+    }
+
+    public void addCritInc(){
+        model.addCritInc();
+    }
+    public int  getCritInc(){
+        return model.getCritInc();
+    }
+    public void setCritInc(int i){
+        model.setCritInc(i);
+    }
+
+    public void addCritIncNeed(){
+        model.addCritIncNeed();
+    }
+    public int  getCritIncNeed(){
+        return model.getCritIncNeed();
+    }
+    public void setCritIncNeed(int i){
+        model.setCritIncNeed(i);
     }
 }

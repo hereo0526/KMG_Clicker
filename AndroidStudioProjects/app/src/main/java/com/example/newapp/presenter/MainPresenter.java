@@ -17,14 +17,14 @@ public class MainPresenter {
         model.setScore(i);
     }
 
-    public void addIncrease(){
-        model.addIncrease();
+    public void addInc(){
+        model.addInc();
     }
-    public int  getIncrease(){
-        return model.getIncrease();
+    public int  getInc(){
+        return model.getInc();
     }
-    public void setIncrease(int i){
-        model.setIncrease(i);
+    public void setInc(int i){
+        model.setInc(i);
     }
 
     public void addDoubleNeed(){
@@ -47,14 +47,14 @@ public class MainPresenter {
         model.setCritRatio(i);
     }
 
-    public void addCritIncrease(){
-        model.addCritIncrease();
+    public void addCritInc(){
+        model.addCritInc();
     }
-    public int  getCritIncrease(){
-        return model.getCritIncrease();
+    public int  getCritInc(){
+        return model.getCritInc();
     }
-    public void setCritIncrease(int i){
-        model.setCritIncrease(i);
+    public void setCritInc(int i){
+        model.setCritInc(i);
     }
 
     public void addScoreCrit(){
