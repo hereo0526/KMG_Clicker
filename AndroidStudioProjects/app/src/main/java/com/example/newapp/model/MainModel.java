@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.example.newapp.view.UpgradeActivity;
 
 import java.util.Random;
+import java.util.Timer;
 
 public class MainModel {
 
@@ -14,11 +15,13 @@ public class MainModel {
     private int double_need = 10;
 
     private int crit_ratio = 1;
+    private int crit_ratio_need = 10;
+
     private int crit_inc = 1;
 
     private int crit_check = 0;
 /////////////////////////////////////////////////////////////////////////
-
+/////////////////////////////////////////////////////////////////////////
     public void addScore(){
         this.score += inc;
     }
@@ -59,6 +62,16 @@ public class MainModel {
         this.crit_ratio = crit_ratio;
     }
 
+    public void addCritRatioNeed(){
+        this.crit_ratio_need *= 2;
+    }
+    public int  getCritRatioNeed(){
+        return this.crit_ratio_need;
+    }
+    public void setCritRatioNeed(int crit_ratio_need){
+        this.crit_ratio_need = crit_ratio_need;
+    }
+
     public void addCritInc(){
         this.crit_inc += 1;
     }
@@ -68,7 +81,7 @@ public class MainModel {
     public void setCritInc(int crit_inc){
         this.crit_inc = crit_inc;
     }
-
+/////////////////////////////////////////////////////////////////////////
     public void addScoreCrit(){
         Random random = new Random();
         if(random.nextInt(100) <= crit_ratio){
@@ -83,5 +96,9 @@ public class MainModel {
         }
         else
             return 0;
+    }
+/////////////////////////////////////////////////////////////////////////
+    public void startClick(){
+
     }
 }

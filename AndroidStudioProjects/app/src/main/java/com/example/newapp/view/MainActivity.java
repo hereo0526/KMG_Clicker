@@ -24,23 +24,57 @@ import com.example.newapp.model.MainModel;
 import com.example.newapp.presenter.MainPresenter;
 
 import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity<clickAllow> extends AppCompatActivity {
 
     DecimalFormat formatter = new DecimalFormat("###,###");
 
     private int anim_check = 0;
 
     private ImageView image_click;
+    private TextView time_text;
     private TextView score_text;
     private TextView critical_text;
     private TextView double_need;
     private TextView click_add;
+    private TextView button_start;
     private Button button_upgrade;
 
     MainPresenter presenter = new MainPresenter();
     Animation animation_pop;
     Animation animation_critical;
+
+    int time_count = 10;
+    private Timer timer;
+    public void tempTask(){
+        timer = new Timer();
+        TimerTask timerTask = new TimerTask(){
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        setTextTimeText("10");
+                        time_count--;
+                        setTextTimeText(Integer.toString(time_count));
+                        if(time_count == 0) {
+                            click_allow = 0;
+                            timer.cancel();
+                            timer = null;
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask, 0, 1000);
+
+    }
+
+
+    private int click_allow = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +82,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         image_click = findViewById(R.id.image_click);
+        time_text = findViewById(R.id.time_text);
         score_text = findViewById(R.id.score_text);
         critical_text = findViewById(R.id.critical_text);
         double_need = findViewById(R.id.double_need);
         click_add = findViewById(R.id.click_add);
+        button_start = findViewById(R.id.button_start);
         button_upgrade = findViewById(R.id.button_upgrade);
-
-        animation_pop = AnimationUtils.loadAnimation(this, R.anim.pop);
-        animation_critical = AnimationUtils.loadAnimation(this, R.anim.critical);
 
         critical_text.setVisibility(View.INVISIBLE);
 
@@ -80,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
             int saved_crit_ratio = pref_get.getInt("crit_ratio", 1);
             presenter.setCritRatio(saved_crit_ratio);
         }
+        if( (pref_get != null) && (pref_get.contains("crit_ratio_need")) ) {
+            int saved_crit_ratio_need = pref_get.getInt("crit_ratio_need", 10);
+            presenter.setCritRatioNeed(saved_crit_ratio_need);
+        }
         if( (pref_get != null) && (pref_get.contains("crit_inc")) ) {
             int saved_crit_inc = pref_get.getInt("crit_inc", 1);
             presenter.setCritRatio(saved_crit_inc);
@@ -95,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                             presenter.setInc(intent_up.getIntExtra("inc_up", presenter.getInc()));
                             presenter.setDoubleNeed(intent_up.getIntExtra("inc_need_up", presenter.getDoubleNeed()));
                             presenter.setCritRatio(intent_up.getIntExtra("crit_ratio_up", presenter.getCritRatio()));
+                            presenter.setCritRatioNeed(intent_up.getIntExtra("crit_ratio_need_up", presenter.getCritRatioNeed()));
                             presenter.setCritInc(intent_up.getIntExtra("crit_inc_up", presenter.getCritInc()));
                             setTextAll();
                         }
@@ -105,18 +143,31 @@ public class MainActivity extends AppCompatActivity {
         image_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.addScore();
-                presenter.addScoreCrit();
-                if(presenter.flagCrit() == 1){
-                    critical_text.clearAnimation();
-                    setCritText(formatter.format(presenter.getCritInc()));
-                    critical_text.setVisibility(View.VISIBLE);
-                    critical_text.startAnimation(animation_critical);
-                    critical_text.setVisibility(View.INVISIBLE);
+                if(click_allow == 1){
+                    presenter.addScore();
+                    presenter.addScoreCrit();
+                    if(presenter.flagCrit() == 1){
+                        critical_text.clearAnimation();
+                        setTextCrit(formatter.format(presenter.getCritInc()));
+                        critical_text.setVisibility(View.VISIBLE);
+                        animation_critical = null;
+                        animation_critical = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.critical);
+                        critical_text.startAnimation(animation_critical);
+                        critical_text.setVisibility(View.INVISIBLE);
+                    }
+                    setTextScore(formatter.format(presenter.getScore()));
+                    animation_pop = null;
+                    animation_pop = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.pop);
+                    image_click.startAnimation(animation_pop);
                 }
-                setTextScore(formatter.format(presenter.getScore()));
-                image_click.clearAnimation();
-                image_click.startAnimation(animation_pop);
+            }
+        });
+        button_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                click_allow = 1;
+                time_count = 10;
+                tempTask();
             }
         });
         button_upgrade.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("inc", presenter.getInc());
                 intent.putExtra("inc_need", presenter.getDoubleNeed());
                 intent.putExtra("crit_ratio", presenter.getCritRatio());
+                intent.putExtra("crit_ratio_need", presenter.getCritRatioNeed());
                 intent.putExtra("crit_inc", presenter.getCritInc());
                 startActivityResult.launch(intent);
             }
@@ -141,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("inc_need", presenter.getDoubleNeed() );
         editor.putInt("inc", presenter.getInc() );
         editor.putInt("crit_ratio", presenter.getCritRatio());
+        editor.putInt("crit_ratio_need", presenter.getCritRatioNeed());
         editor.putInt("crit_inc", presenter.getCritInc());
         editor.apply();
         editor.commit();
@@ -160,7 +213,10 @@ public class MainActivity extends AppCompatActivity {
         setTextinc("("+'+'+formatter.format(presenter.getInc())+')');
         setTextDoubleNeed(formatter.format(presenter.getDoubleNeed()));
     }
-    public void setCritText(String s){
+    public void setTextCrit(String s){
         critical_text.setText("x2");
+    }
+    public void setTextTimeText(String s){
+        time_text.setText(s);
     }
 }

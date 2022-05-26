@@ -18,13 +18,13 @@ public class UpgradeActivity extends AppCompatActivity {
     private TextView score_text_upgrade;
 
     private Button button_add_inc;
-    private TextView double_need_text;
+    private TextView inc_need_text;
 
     private Button button_crit_ratio;
     private TextView crit_ratio_text;
 
-    private Button button_crit_inc;
-    private TextView crit_inc_text;
+    //private Button button_crit_inc;
+    //private TextView crit_inc_text;
 
     private Button button_clear;
     private ImageView image_back;
@@ -38,11 +38,11 @@ public class UpgradeActivity extends AppCompatActivity {
 
         score_text_upgrade = findViewById(R.id.score_text_upgrade);
         button_add_inc = findViewById(R.id.button_add_inc);
-        double_need_text = findViewById(R.id.inc_need_text);
+        inc_need_text = findViewById(R.id.inc_need_text);
         button_crit_ratio = findViewById(R.id.button_crit_ratio);
         crit_ratio_text = findViewById(R.id.crit_ratio_text);
-        button_crit_inc = findViewById(R.id.button_crit_inc);
-        crit_inc_text = findViewById(R.id.crit_inc_text);
+        //button_crit_inc = findViewById(R.id.button_crit_inc);
+        //crit_inc_text = findViewById(R.id.crit_inc_text);
         button_clear = findViewById(R.id.button_clear);
         image_back = findViewById(R.id.image_back);
 
@@ -52,6 +52,7 @@ public class UpgradeActivity extends AppCompatActivity {
         presenter.setInc(intent.getExtras().getInt("inc"));
         presenter.setIncNeed(intent.getExtras().getInt("inc_need"));
         presenter.setCritRatio(intent.getExtras().getInt("crit_ratio"));
+        presenter.setCritRatioNeed(intent.getExtras().getInt("crit_ratio_need"));
         presenter.setCritInc(intent.getExtras().getInt("crit_inc"));
 
         setTextAll();
@@ -78,6 +79,7 @@ public class UpgradeActivity extends AppCompatActivity {
                     presenter.addCritRatioNeed();
                     setTextScoreUpgrade();
                     setTextCritRatio();
+                    setTextCritRatioNeed();
                 }
             }
         });
@@ -102,6 +104,7 @@ public class UpgradeActivity extends AppCompatActivity {
                 intent.putExtra("inc_up", presenter.getInc());
                 intent.putExtra("inc_need_up", presenter.getIncNeed());
                 intent.putExtra("crit_ratio_up", presenter.getCritRatio());
+                intent.putExtra("crit_ratio_need_up", presenter.getCritRatioNeed());
                 intent.putExtra("crit_inc_up", presenter.getCritInc());
                 setResult(RESULT_OK, intent);
                 finish();
@@ -112,22 +115,26 @@ public class UpgradeActivity extends AppCompatActivity {
         score_text_upgrade.setText("점수 : "+Integer.toString(presenter.getScore()));
     }
     public void setTextInc(){
-        button_add_inc.setText("클릭점수"+"+"+Integer.toString(presenter.getInc()));
+        inc_need_text.setText("+"+Integer.toString(presenter.getInc()));
     }
     public void setTextIncNeed(){
-        double_need_text.setText(Integer.toString(presenter.getIncNeed()));
+        button_add_inc.setText("비용 : "+Integer.toString(presenter.getIncNeed()));
     }
     public void setTextCritRatio(){
-        crit_ratio_text.setText(Integer.toString(presenter.getCritRatioNeed()));
+        crit_ratio_text.setText(Integer.toString(presenter.getCritRatio())+"%");
+    }
+    public void setTextCritRatioNeed(){
+        button_crit_ratio.setText("비용 : "+Integer.toString(presenter.getCritRatioNeed()));
     }
     public void setTextCritInc(){
-        crit_inc_text.setText(Integer.toString(presenter.getCritIncNeed()));
+        //crit_inc_text.setText(Integer.toString(presenter.getCritIncNeed()));
     }
     public void setTextAll(){
         setTextScoreUpgrade();
         setTextInc();
         setTextIncNeed();
         setTextCritRatio();
+        setTextCritRatioNeed();
         setTextCritInc();
     }
 }

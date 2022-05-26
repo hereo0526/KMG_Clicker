@@ -47,6 +47,16 @@ public class MainPresenter {
         model.setCritRatio(i);
     }
 
+    public void addCritRatioNeed(){
+        model.addCritRatioNeed();
+    }
+    public int  getCritRatioNeed(){
+        return model.getCritRatioNeed();
+    }
+    public void setCritRatioNeed(int i){
+        model.setCritRatioNeed(i);
+    }
+
     public void addCritInc(){
         model.addCritInc();
     }
@@ -62,5 +72,9 @@ public class MainPresenter {
     }
     public int flagCrit(){
         return model.flagCrit();
+    }
+
+    public void startClick(){
+        model.startClick();
     }
 }
