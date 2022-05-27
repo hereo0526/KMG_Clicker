@@ -90,27 +90,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_crit_ratio"/>
 -->
-    <Button
-        android:id="@+id/button_clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/teal_200"
-        android:text="clear"
-        android:textAllCaps="true"
-        android:textSize="15dp"
-        android:layout_margin="70dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_crit_ratio"
-        />
     <ImageView
         android:id="@+id/image_back"
         android:src="@drawable/back"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_clear"
+        app:layout_constraintTop_toBottomOf="@id/button_crit_ratio"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

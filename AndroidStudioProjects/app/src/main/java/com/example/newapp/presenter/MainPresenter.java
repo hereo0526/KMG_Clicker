@@ -27,14 +27,14 @@ public class MainPresenter {
         model.setInc(i);
     }
 
-    public void addDoubleNeed(){
-        model.addDoubleNeed();
+    public void addIncNeed(){
+        model.addIncNeed();
     }
-    public int  getDoubleNeed(){
-        return model.getDoubleNeed();
+    public int  getIncNeed(){
+        return model.getIncNeed();
     }
-    public void setDoubleNeed(int i){
-        model.setDoubleNeed(i);
+    public void setIncNeed(int i){
+        model.setIncNeed(i);
     }
 
     public void addCritRatio(){

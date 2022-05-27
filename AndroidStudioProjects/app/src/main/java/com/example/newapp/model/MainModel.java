@@ -12,7 +12,7 @@ public class MainModel {
 /////////////////////////////////////////////////////////////////////////
     private int score = 0;
     private int inc = 1;
-    private int double_need = 10;
+    private int inc_need = 10;
 
     private int crit_ratio = 1;
     private int crit_ratio_need = 10;
@@ -52,14 +52,14 @@ public class MainModel {
         this.inc = mul;
     }
 
-    public void addDoubleNeed(){
-        this.double_need *= 2;
+    public void addIncNeed(){
+        this.inc_need *= 2;
     }
-    public int  getDoubleNeed(){
-        return this.double_need;
+    public int  getIncNeed(){
+        return this.inc_need;
     }
-    public void setDoubleNeed(int double_need){
-        this.double_need = double_need;
+    public void setIncNeed(int inc_need){
+        this.inc_need = inc_need;
     }
 
     public void addCritRatio(){

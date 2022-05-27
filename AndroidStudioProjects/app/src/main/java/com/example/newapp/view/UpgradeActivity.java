@@ -83,19 +83,6 @@ public class UpgradeActivity extends AppCompatActivity {
                 }
             }
         });
-        button_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.setScore(0);
-                presenter.setInc(1);
-                presenter.setIncNeed(10);
-                presenter.setCritRatio(1);
-                presenter.setCritRatioNeed(10);
-                presenter.setCritInc(1);
-                presenter.setCritIncNeed(10);
-                setTextAll();
-            }
-        });
         image_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
