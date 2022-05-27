@@ -74,7 +74,52 @@ public class MainPresenter {
         return model.flagCrit();
     }
 
-    public void startClick(){
-        model.startClick();
+    public int getMyHealth(){
+        return model.getMyHealth();
+    }
+    public void setMyHealth(int i){
+        model.setMyHealth(i);
+    }
+
+    public int getMyAttack(){
+        return model.getMyAttack();
+    }
+    public void setMyAttack(int i){
+        model.setMyAttack(i);
+    }
+
+    public int getEnemyHealth(){
+        return model.getEnemyHealth();
+    }
+    public void setEnemyHealth(int i){
+        model.setEnemyHealth(i);
+    }
+
+    public int getEnemyAttack(){
+        return model.getEnemyAttack();
+    }
+    public void setEnemyAttack(int i){
+        model.setEnemyAttack(i);
+    }
+
+    public int getUpFlag(){
+        return model.getUpFlag();
+    }
+    public void setUpFlag(int i){
+        model.setUpFlag(i);
+    }
+
+    public int getUpChoose(){
+        return model.getUpChoose();
+    }
+    public void setUpChoose(int i){
+        model.setUpChoose(i);
+    }
+
+    public int getClickAllow(){
+        return model.getClickAllow();
+    }
+    public void setClickAllow(int i){
+        model.setCLickAllow(i);
     }
 }

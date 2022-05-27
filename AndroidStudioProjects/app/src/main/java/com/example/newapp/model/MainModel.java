@@ -20,6 +20,16 @@ public class MainModel {
     private int crit_inc = 1;
 
     private int crit_check = 0;
+
+    private int my_health = 100;
+    private int my_attack = 10;
+
+    private int enemy_health = 1000;
+    private int enemy_attack = 10;
+
+    private int up_flag = 0;
+    private int up_choose = 0;
+    private int click_allow = 0;
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
     public void addScore(){
@@ -81,6 +91,55 @@ public class MainModel {
     public void setCritInc(int crit_inc){
         this.crit_inc = crit_inc;
     }
+
+    public int getMyHealth(){
+        return this.my_health;
+    }
+    public void setMyHealth(int myHealth){
+        this.my_health = myHealth;
+    }
+
+    public int getMyAttack(){
+        return this.my_attack;
+    }
+    public void setMyAttack(int myAttack){
+        this.my_attack = myAttack;
+    }
+
+    public int getEnemyHealth(){
+        return this.enemy_health;
+    }
+    public void setEnemyHealth(int enemy_health){
+        this.enemy_health = enemy_health;
+    }
+
+    public int getEnemyAttack(){
+        return this.enemy_attack;
+    }
+    public void setEnemyAttack(int enemyAttack){
+        this.enemy_attack = enemyAttack;
+    }
+
+    public int getUpFlag(){
+        return this.up_flag;
+    }
+    public void setUpFlag(int up_flag){
+        this.up_flag = up_flag;
+    }
+
+    public int getUpChoose(){
+        return this.up_choose;
+    }
+    public void setUpChoose(int up_choose){
+        this.up_choose = up_choose;
+    }
+
+    public int getClickAllow(){
+        return this.click_allow;
+    }
+    public void setCLickAllow(int click_allow){
+        this.click_allow = click_allow;
+    }
 /////////////////////////////////////////////////////////////////////////
     public void addScoreCrit(){
         Random random = new Random();
@@ -97,8 +156,7 @@ public class MainModel {
         else
             return 0;
     }
-/////////////////////////////////////////////////////////////////////////
-    public void startClick(){
 
-    }
+/////////////////////////////////////////////////////////////////////////
+
 }
