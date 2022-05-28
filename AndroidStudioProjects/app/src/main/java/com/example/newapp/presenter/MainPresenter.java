@@ -102,6 +102,20 @@ public class MainPresenter {
         model.setEnemyAttack(i);
     }
 
+    public int getEnemyHealthArr(){
+        return model.getEnemyHealthArr();
+    }
+    public int getEnemyAttackArr() {
+        return model.getEnemyAttackArr();
+    }
+
+    public int getEnemyIndex(){
+        return model.getEnemyIndex();
+    }
+    public void setEnemyIndex(int i){
+        model.setEnemyIndex(i);
+    }
+
     public int getUpFlag(){
         return model.getUpFlag();
     }

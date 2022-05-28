@@ -1,11 +1,8 @@
 package com.example.newapp.model;
 
-import android.content.Intent;
-
-import com.example.newapp.view.UpgradeActivity;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
-import java.util.Timer;
 
 public class MainModel {
 
@@ -25,11 +22,14 @@ public class MainModel {
     private int my_attack = 10;
 
     private int enemy_health = 1000;
-    private int enemy_attack = 10;
+    private int enemy_attack = 2;
+    private int enemy_index = 1;
 
     private int up_flag = 0;
     private int up_choose = 0;
     private int click_allow = 0;
+    ArrayList<Integer> enemy_health_arr = new ArrayList<Integer>(Arrays.asList(1000, 5000, 10000));
+    ArrayList<Integer> enemy_attack_arr = new ArrayList<Integer>(Arrays.asList(2, 5, 15));
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
     public void addScore(){
@@ -118,6 +118,20 @@ public class MainModel {
     }
     public void setEnemyAttack(int enemyAttack){
         this.enemy_attack = enemyAttack;
+    }
+
+    public int getEnemyHealthArr(){
+        return enemy_health_arr.get(enemy_index);
+    }
+    public int getEnemyAttackArr(){
+        return enemy_attack_arr.get(enemy_index);
+    }
+
+    public int getEnemyIndex(){
+        return this.enemy_index;
+    }
+    public void setEnemyIndex(int enemy_index){
+        this.enemy_index = enemy_index;
     }
 
     public int getUpFlag(){

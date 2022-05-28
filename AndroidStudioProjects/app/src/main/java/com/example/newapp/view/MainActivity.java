@@ -53,6 +53,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
     Animation animation_enemy_hit;
     Animation animation_sword_cut;
     Animation animation_enemy_down;
+    Animation animation_enemy_emerge;
 
     int time_count = 10;
     private Timer timer;
@@ -73,7 +74,6 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                             timer = null;
                             presenter.setUpFlag(1);
                             image_click.setVisibility(View.INVISIBLE);
-                            button_start.setVisibility(View.VISIBLE);
                             button_attack.setVisibility(View.VISIBLE);
                             button_upgrade.setVisibility(View.VISIBLE);
                         }
@@ -167,6 +167,8 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         button_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                image_enemy.setVisibility(View.VISIBLE);
+                button_start.setVisibility(View.VISIBLE);
                 button_attack.setVisibility(View.INVISIBLE);
                 button_upgrade.setVisibility(View.INVISIBLE);
                 presenter.setScore(0);
@@ -220,15 +222,29 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         animation_enemy_hit = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_hit);
         animation_sword_cut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sword_cut);
         animation_enemy_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_down);
+        animation_enemy_emerge = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_emerge);
         button_attack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(presenter.getUpFlag() == 1) {
                     presenter.setMyAttack(presenter.getScore());
-                    if(presenter.getEnemyHealth() - presenter.getMyAttack() <= 0){
+                    button_start.setVisibility(View.VISIBLE);
+                    if(presenter.getEnemyHealth() - presenter.getMyAttack() <= 0){//적 잡음
+                        presenter.setEnemyHealth(0);
+                        setTextEnemyHealth();
                         image_sword_cut.startAnimation(animation_sword_cut);
                         image_enemy.startAnimation(animation_enemy_down);
                         image_enemy.setVisibility(View.INVISIBLE);
+
+                        presenter.setEnemyIndex(presenter.getEnemyIndex()+1);
+                        presenter.setEnemyHealth(presenter.getEnemyHealthArr());
+                        presenter.setEnemyAttack(presenter.getEnemyAttackArr());
+                        image_enemy.setImageResource(R.drawable.dratemp);
+                        image_enemy.setVisibility(View.VISIBLE);
+                        image_enemy.startAnimation(animation_enemy_emerge);
+                        presenter.setEnemyHealth(presenter.getEnemyHealthArr());
+                        presenter.setEnemyAttack(presenter.getEnemyAttackArr());
+                        presenter.setEnemyIndex(presenter.getEnemyIndex());
                     }
                     else{
                         presenter.setEnemyHealth(presenter.getEnemyHealth() - presenter.getMyAttack());
@@ -258,6 +274,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         setTextMyHealth();
                         button_attack.setVisibility(View.INVISIBLE);
                         presenter.setUpChoose(0);
+                        button_start.setVisibility(View.VISIBLE);
                     }
                     Intent intent = new Intent(MainActivity.this, UpgradeActivity.class);
                     intent.putExtra("score", presenter.getScore());
