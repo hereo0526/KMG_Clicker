@@ -55,10 +55,12 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
     Animation animation_enemy_down;
     Animation animation_enemy_emerge;
 
+    int clear = 0;
     int time_count = 10;
     private Timer timer;
     public void tempTask(){
-        timer = new Timer();
+        if(timer == null)
+            timer = new Timer();
         TimerTask timerTask = new TimerTask(){
             @Override
             public void run() {
@@ -66,23 +68,27 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                     @Override
                     public void run() {
                         setTextTimeText("10");
-                        time_count--;
+                        if(time_count > 0)
+                            time_count--;
                         setTextTimeText(Integer.toString(time_count));
                         if(time_count == 0) {
                             presenter.setClickAllow(0);
                             timer.cancel();
                             timer = null;
                             presenter.setUpFlag(1);
-                            image_click.setVisibility(View.INVISIBLE);
-                            button_attack.setVisibility(View.VISIBLE);
-                            button_upgrade.setVisibility(View.VISIBLE);
+                            if(clear == 0){
+                                image_click.setVisibility(View.INVISIBLE);
+                                button_attack.setVisibility(View.VISIBLE);
+                                button_upgrade.setVisibility(View.VISIBLE);
+                            }
+                            else
+                                clear = 0;
                         }
                     }
                 });
             }
         };
         timer.schedule(timerTask, 0, 1000);
-
     }
 
     @Override
@@ -167,10 +173,6 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         button_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image_enemy.setVisibility(View.VISIBLE);
-                button_start.setVisibility(View.VISIBLE);
-                button_attack.setVisibility(View.INVISIBLE);
-                button_upgrade.setVisibility(View.INVISIBLE);
                 presenter.setScore(0);
                 presenter.setInc(1);
                 presenter.setIncNeed(10);
@@ -178,6 +180,14 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                 presenter.setCritRatioNeed(10);
                 presenter.setMyHealth(100);
                 presenter.setEnemyHealth(1000);
+                clear = 1;
+                time_count = 0;
+                image_enemy.setVisibility(View.VISIBLE);
+                image_click.setVisibility(View.INVISIBLE);
+                button_start.setVisibility(View.VISIBLE);
+                button_attack.setVisibility(View.INVISIBLE);
+                button_upgrade.setVisibility(View.INVISIBLE);
+                setTextTimeText("0");
                 setTextAll();
             }
         });
@@ -216,6 +226,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                 button_attack.setVisibility(View.INVISIBLE);
                 button_upgrade.setVisibility(View.INVISIBLE);
 
+
             }
         });
 
@@ -235,11 +246,10 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         image_sword_cut.startAnimation(animation_sword_cut);
                         image_enemy.startAnimation(animation_enemy_down);
                         image_enemy.setVisibility(View.INVISIBLE);
-
                         presenter.setEnemyIndex(presenter.getEnemyIndex()+1);
                         presenter.setEnemyHealth(presenter.getEnemyHealthArr());
                         presenter.setEnemyAttack(presenter.getEnemyAttackArr());
-                        image_enemy.setImageResource(R.drawable.dratemp);
+                        image_enemy.setImageResource(R.drawable.boss1_default);
                         image_enemy.setVisibility(View.VISIBLE);
                         image_enemy.startAnimation(animation_enemy_emerge);
                         presenter.setEnemyHealth(presenter.getEnemyHealthArr());
@@ -253,10 +263,27 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         image_enemy.startAnimation(animation_enemy_hit);
                         image_sword_cut.startAnimation(animation_sword_cut);
                         /////////////////적이 피해를 입는 모션
+                        new java.util.Timer().schedule(
+                                new java.util.TimerTask() {
+                                    @Override
+                                    public void run() {
+                                    }
+                                },
+                                700
+                        );
+                        /////////////////
+                        image_enemy.setImageResource(R.drawable.boss1_attack);
                         presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
-
-                        /////////////////setTextMyHealth();
                         /////////////////적이 날 공격하는 모션
+                        new java.util.Timer().schedule(
+                                new java.util.TimerTask() {
+                                    @Override
+                                    public void run() {
+                                    }
+                                },
+                                700
+                        );
+                        image_enemy.setImageResource(R.drawable.boss1_default);
                         button_attack.setVisibility(View.INVISIBLE);
                         button_upgrade.setVisibility(View.INVISIBLE);
                         presenter.setScore(0);
