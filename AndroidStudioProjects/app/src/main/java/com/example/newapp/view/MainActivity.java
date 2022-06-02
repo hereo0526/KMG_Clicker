@@ -24,6 +24,8 @@ import com.example.newapp.model.MainModel;
 import com.example.newapp.presenter.MainPresenter;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Handler;
@@ -54,6 +56,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
     Animation animation_sword_cut;
     Animation animation_enemy_down;
     Animation animation_enemy_emerge;
+    Animation animation_enemy_attack;
 
     int clear = 0;
     int time_count = 10;
@@ -115,6 +118,9 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         button_attack.setVisibility(View.INVISIBLE);
         button_upgrade.setVisibility(View.INVISIBLE);
 
+        String[] enemy_default_id = {"", "boss1_default"};
+        String[] enemy_attack_id = {"", "boss1_attack"};
+
         SharedPreferences pref_get = getSharedPreferences("preferences", MODE_PRIVATE);
         if( (pref_get != null) && (pref_get.contains("score")) ) {
             int saved_score = pref_get.getInt("score", 0);
@@ -169,6 +175,9 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////
         animation_critical = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.critical);
         animation_pop = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.pop);
+
+        presenter.setEnemyHealth(presenter.getEnemyHealthArr());
+        presenter.setEnemyAttack(presenter.getEnemyAttackArr());
 
         button_clear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,6 +243,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         animation_sword_cut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sword_cut);
         animation_enemy_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_down);
         animation_enemy_emerge = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_emerge);
+        animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
         button_attack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,10 +256,12 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         image_sword_cut.startAnimation(animation_sword_cut);
                         image_enemy.startAnimation(animation_enemy_down);
                         image_enemy.setVisibility(View.INVISIBLE);
+
+                        int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", "");
                         presenter.setEnemyIndex(presenter.getEnemyIndex()+1);
                         presenter.setEnemyHealth(presenter.getEnemyHealthArr());
                         presenter.setEnemyAttack(presenter.getEnemyAttackArr());
-                        image_enemy.setImageResource(R.drawable.boss1_default);
+                        image_enemy.setImageResource(resId_default);
                         image_enemy.setVisibility(View.VISIBLE);
                         image_enemy.startAnimation(animation_enemy_emerge);
                         presenter.setEnemyHealth(presenter.getEnemyHealthArr());
@@ -267,27 +279,41 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                                 new java.util.TimerTask() {
                                     @Override
                                     public void run() {
+                                        runOnUiThread(new Runnable(){
+                                            @Override
+                                            public void run() {
+                                                int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawble", "");
+                                                image_enemy.setImageResource(resId_default);
+                                            }
+                                        });
                                     }
                                 },
-                                700
+                                2000
                         );
                         /////////////////
-                        image_enemy.setImageResource(R.drawable.boss1_attack);
-                        presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
                         /////////////////적이 날 공격하는 모션
                         new java.util.Timer().schedule(
                                 new java.util.TimerTask() {
                                     @Override
                                     public void run() {
+                                        button_attack.setVisibility(View.INVISIBLE);
+                                        button_upgrade.setVisibility(View.INVISIBLE);
+                                        presenter.setScore(0);
+                                        runOnUiThread(new Runnable(){
+                                            @Override
+                                            public void run() {
+                                                presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
+                                                setTextMyHealth();
+                                                int resId_attack = getResources().getIdentifier(enemy_attack_id[presenter.getEnemyIndex()], "drawble", "");
+                                                image_enemy.setImageResource(resId_attack);
+                                                image_enemy.startAnimation(animation_enemy_attack);
+                                                setTextScore();
+                                            }
+                                        });
                                     }
                                 },
-                                700
+                                1000
                         );
-                        image_enemy.setImageResource(R.drawable.boss1_default);
-                        button_attack.setVisibility(View.INVISIBLE);
-                        button_upgrade.setVisibility(View.INVISIBLE);
-                        presenter.setScore(0);
-                        setTextScore();
                     }
                 }
             }

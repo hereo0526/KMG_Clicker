@@ -23,7 +23,7 @@ public class MainModel {
 
     private int enemy_health = 1000;
     private int enemy_attack = 2;
-    private int enemy_index = 1;
+    private int enemy_index = 0;
 
     private int up_flag = 0;
     private int up_choose = 0;
