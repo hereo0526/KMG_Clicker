@@ -118,8 +118,9 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         button_attack.setVisibility(View.INVISIBLE);
         button_upgrade.setVisibility(View.INVISIBLE);
 
-        String[] enemy_default_id = {"", "boss1_default"};
-        String[] enemy_attack_id = {"", "boss1_attack"};
+        String[] enemy_default_id = {"@drawable/wolf", "@drawable/boss1_default"};
+        String[] enemy_attack_id = {"@drawable/wolf", "@drawable/boss1_attack"};
+        String packName = this.getPackageName();
 
         SharedPreferences pref_get = getSharedPreferences("preferences", MODE_PRIVATE);
         if( (pref_get != null) && (pref_get.contains("score")) ) {
@@ -140,6 +141,10 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         if( (pref_get != null) && (pref_get.contains("inc")) ) {
             int saved_inc = pref_get.getInt("inc", 1);
             presenter.setInc(saved_inc);
+        }
+        if( (pref_get != null) && (pref_get.contains("inc_need")) ) {
+            int saved_inc_need = pref_get.getInt("inc_need", 10);
+            presenter.setInc(saved_inc_need);
         }
         if( (pref_get != null) && (pref_get.contains("crit_ratio")) ) {
             int saved_crit_ratio = pref_get.getInt("crit_ratio", 1);
@@ -188,7 +193,11 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                 presenter.setCritRatio(1);
                 presenter.setCritRatioNeed(10);
                 presenter.setMyHealth(100);
-                presenter.setEnemyHealth(1000);
+                presenter.setEnemyIndex(0);
+                presenter.setEnemyHealth(presenter.getEnemyHealthArr());
+                presenter.setEnemyAttack(presenter.getEnemyAttackArr());
+                int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
+                image_enemy.setImageResource(resId_default);
                 clear = 1;
                 time_count = 0;
                 image_enemy.setVisibility(View.VISIBLE);
@@ -252,18 +261,22 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                     button_start.setVisibility(View.VISIBLE);
                     if(presenter.getEnemyHealth() - presenter.getMyAttack() <= 0){//적 잡음
                         presenter.setEnemyHealth(0);
-                        setTextEnemyHealth();
+                        presenter.setScore(0);
+                        setTextAll();
                         image_sword_cut.startAnimation(animation_sword_cut);
                         image_enemy.startAnimation(animation_enemy_down);
                         image_enemy.setVisibility(View.INVISIBLE);
 
-                        int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", "");
                         presenter.setEnemyIndex(presenter.getEnemyIndex()+1);
+                        int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
                         presenter.setEnemyHealth(presenter.getEnemyHealthArr());
                         presenter.setEnemyAttack(presenter.getEnemyAttackArr());
+                        setTextEnemyHealth();
                         image_enemy.setImageResource(resId_default);
                         image_enemy.setVisibility(View.VISIBLE);
                         image_enemy.startAnimation(animation_enemy_emerge);
+                        button_attack.setVisibility(View.INVISIBLE);
+                        button_upgrade.setVisibility(View.INVISIBLE);
                         presenter.setEnemyHealth(presenter.getEnemyHealthArr());
                         presenter.setEnemyAttack(presenter.getEnemyAttackArr());
                         presenter.setEnemyIndex(presenter.getEnemyIndex());
@@ -275,23 +288,8 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         image_enemy.startAnimation(animation_enemy_hit);
                         image_sword_cut.startAnimation(animation_sword_cut);
                         /////////////////적이 피해를 입는 모션
-                        new java.util.Timer().schedule(
-                                new java.util.TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        runOnUiThread(new Runnable(){
-                                            @Override
-                                            public void run() {
-                                                int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawble", "");
-                                                image_enemy.setImageResource(resId_default);
-                                            }
-                                        });
-                                    }
-                                },
-                                2000
-                        );
+
                         /////////////////
-                        /////////////////적이 날 공격하는 모션
                         new java.util.Timer().schedule(
                                 new java.util.TimerTask() {
                                     @Override
@@ -304,7 +302,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                                             public void run() {
                                                 presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
                                                 setTextMyHealth();
-                                                int resId_attack = getResources().getIdentifier(enemy_attack_id[presenter.getEnemyIndex()], "drawble", "");
+                                                int resId_attack = getResources().getIdentifier(enemy_attack_id[presenter.getEnemyIndex()], "drawable", packName);
                                                 image_enemy.setImageResource(resId_attack);
                                                 image_enemy.startAnimation(animation_enemy_attack);
                                                 setTextScore();
@@ -314,6 +312,22 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                                 },
                                 1000
                         );
+                        new java.util.Timer().schedule(
+                                new java.util.TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable(){
+                                            @Override
+                                            public void run() {
+                                                int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
+                                                image_enemy.setImageResource(resId_default);
+                                            }
+                                        });
+                                    }
+                                },
+                                1600
+                        );
+                        /////////////////적이 공격하는 모션
                     }
                 }
             }
