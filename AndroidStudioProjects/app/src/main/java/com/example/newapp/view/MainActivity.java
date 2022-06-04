@@ -8,6 +8,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -247,10 +249,25 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
 
             }
         });
+        Animation.AnimationListener animListener_down = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                image_enemy.setVisibility(View.INVISIBLE);
+            }
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
         animation_enemy_hit = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_hit);
         animation_sword_cut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sword_cut);
         animation_enemy_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_down);
+        animation_enemy_down.setAnimationListener(animListener_down);
         animation_enemy_emerge = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_emerge);
         animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
         button_attack.setOnClickListener(new View.OnClickListener() {
@@ -263,9 +280,11 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         presenter.setEnemyHealth(0);
                         presenter.setScore(0);
                         setTextAll();
+                        image_enemy.startAnimation(animation_enemy_hit);
                         image_sword_cut.startAnimation(animation_sword_cut);
+                        image_enemy.clearAnimation();
                         image_enemy.startAnimation(animation_enemy_down);
-                        image_enemy.setVisibility(View.INVISIBLE);
+
 
                         presenter.setEnemyIndex(presenter.getEnemyIndex()+1);
                         int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
@@ -274,6 +293,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         setTextEnemyHealth();
                         image_enemy.setImageResource(resId_default);
                         image_enemy.setVisibility(View.VISIBLE);
+                        image_enemy.clearAnimation();
                         image_enemy.startAnimation(animation_enemy_emerge);
                         button_attack.setVisibility(View.INVISIBLE);
                         button_upgrade.setVisibility(View.INVISIBLE);
@@ -290,8 +310,8 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         /////////////////적이 피해를 입는 모션
 
                         /////////////////
-                        new java.util.Timer().schedule(
-                                new java.util.TimerTask() {
+                        new Timer().schedule(
+                                new TimerTask() {
                                     @Override
                                     public void run() {
                                         button_attack.setVisibility(View.INVISIBLE);
@@ -312,8 +332,8 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                                 },
                                 1000
                         );
-                        new java.util.Timer().schedule(
-                                new java.util.TimerTask() {
+                        new Timer().schedule(
+                                new TimerTask() {
                                     @Override
                                     public void run() {
                                         runOnUiThread(new Runnable(){

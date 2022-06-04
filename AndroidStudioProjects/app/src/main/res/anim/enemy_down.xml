@@ -2,18 +2,17 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <translate
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="1000"
+        android:duration="700"
         android:fromYDelta="0"
-        android:toYDelta="50%">
+        android:toYDelta="50%"
+        android:startOffset = "1000"
+        >
     </translate>
     <alpha xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="10"
-        android:fromAlpha="0.0"
-        android:interpolator="@android:anim/accelerate_interpolator"
-        android:toAlpha="1.0" />
-    <alpha xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="990"
+        android:duration="700"
         android:fromAlpha="1.0"
         android:interpolator="@android:anim/accelerate_interpolator"
-        android:toAlpha="0.0"/>
+        android:toAlpha="0.0"
+        android:startOffset = "1000"
+        />
 </set>
