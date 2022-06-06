@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -35,8 +36,6 @@ import java.util.logging.Handler;
 public class MainActivity<clickAllow> extends AppCompatActivity {
 
     DecimalFormat formatter = new DecimalFormat("###,###");
-
-    private int anim_check = 0;
 
     private Button button_clear;
     private ImageView image_enemy;
@@ -101,6 +100,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         button_clear = findViewById(R.id.button_clear);
         image_enemy = findViewById(R.id.image_enemy);
         image_sword_cut = findViewById(R.id.image_sword_cut);
@@ -180,6 +180,8 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                 }
         );
         ////////////////////////////////////////////////////////////////////////////////////////////
+        animation_critical = null;
+        animation_pop = null;
         animation_critical = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.critical);
         animation_pop = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.pop);
 
@@ -249,25 +251,14 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
 
             }
         });
-        Animation.AnimationListener animListener_down = new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                image_enemy.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        };
+        animation_enemy_hit = null;
+        animation_sword_cut = null;
+        animation_enemy_down = null;
+        animation_enemy_emerge = null;
+        animation_enemy_attack = null;
         animation_enemy_hit = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_hit);
         animation_sword_cut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sword_cut);
         animation_enemy_down = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_down);
-        animation_enemy_down.setAnimationListener(animListener_down);
         animation_enemy_emerge = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_emerge);
         animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
         button_attack.setOnClickListener(new View.OnClickListener() {
@@ -280,26 +271,50 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         presenter.setEnemyHealth(0);
                         presenter.setScore(0);
                         setTextAll();
+
                         image_enemy.startAnimation(animation_enemy_hit);
                         image_sword_cut.startAnimation(animation_sword_cut);
-                        image_enemy.clearAnimation();
-                        image_enemy.startAnimation(animation_enemy_down);
-
-
-                        presenter.setEnemyIndex(presenter.getEnemyIndex()+1);
-                        int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
-                        presenter.setEnemyHealth(presenter.getEnemyHealthArr());
-                        presenter.setEnemyAttack(presenter.getEnemyAttackArr());
-                        setTextEnemyHealth();
-                        image_enemy.setImageResource(resId_default);
-                        image_enemy.setVisibility(View.VISIBLE);
-                        image_enemy.clearAnimation();
-                        image_enemy.startAnimation(animation_enemy_emerge);
-                        button_attack.setVisibility(View.INVISIBLE);
-                        button_upgrade.setVisibility(View.INVISIBLE);
-                        presenter.setEnemyHealth(presenter.getEnemyHealthArr());
-                        presenter.setEnemyAttack(presenter.getEnemyAttackArr());
-                        presenter.setEnemyIndex(presenter.getEnemyIndex());
+                        new Timer().schedule(
+                                new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable(){
+                                            @Override
+                                            public void run() {
+                                                image_enemy.startAnimation(animation_enemy_down);
+                                            }
+                                        });
+                                    }
+                                },
+                                700
+                        );
+                        new Timer().schedule(
+                                new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable(){
+                                            @Override
+                                            public void run() {
+                                                presenter.setEnemyIndex(presenter.getEnemyIndex()+1);
+                                                int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
+                                                presenter.setEnemyHealth(presenter.getEnemyHealthArr());
+                                                presenter.setEnemyAttack(presenter.getEnemyAttackArr());
+                                                setTextEnemyHealth();
+                                                image_enemy.setImageResource(resId_default);
+                                                image_enemy.setVisibility(View.VISIBLE);
+                                                image_enemy.clearAnimation();
+                                                image_enemy.startAnimation(animation_enemy_emerge);
+                                                button_attack.setVisibility(View.INVISIBLE);
+                                                button_upgrade.setVisibility(View.INVISIBLE);
+                                                presenter.setEnemyHealth(presenter.getEnemyHealthArr());
+                                                presenter.setEnemyAttack(presenter.getEnemyAttackArr());
+                                                presenter.setEnemyIndex(presenter.getEnemyIndex());
+                                            }
+                                        });
+                                    }
+                                },
+                                1400
+                        );
                     }
                     else{
                         presenter.setEnemyHealth(presenter.getEnemyHealth() - presenter.getMyAttack());
@@ -357,20 +372,54 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
             public void onClick(View view) {
                 if(presenter.getUpFlag() == 1) {
                     if (presenter.getUpChoose() == 1){
-                        presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
-                        setTextMyHealth();
+                        new Timer().schedule(
+                                new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        button_upgrade.setVisibility(View.INVISIBLE);
+                                        runOnUiThread(new Runnable(){
+                                            @Override
+                                            public void run() {
+                                                presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
+                                                setTextMyHealth();
+                                                int resId_attack = getResources().getIdentifier(enemy_attack_id[presenter.getEnemyIndex()], "drawable", packName);
+                                                image_enemy.setImageResource(resId_attack);
+                                                image_enemy.startAnimation(animation_enemy_attack);
+                                                setTextScore();
+                                            }
+                                        });
+                                    }
+                                },
+                                1000
+                        );
+                        new Timer().schedule(
+                                new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable(){
+                                            @Override
+                                            public void run() {
+                                                int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
+                                                image_enemy.setImageResource(resId_default);
+                                                Intent intent = new Intent(MainActivity.this, UpgradeActivity.class);
+                                                intent.putExtra("score", presenter.getScore());
+                                                intent.putExtra("inc", presenter.getInc());
+                                                intent.putExtra("inc_need", presenter.getIncNeed());
+                                                intent.putExtra("crit_ratio", presenter.getCritRatio());
+                                                intent.putExtra("crit_ratio_need", presenter.getCritRatioNeed());
+                                                intent.putExtra("crit_inc", presenter.getCritInc());
+                                                startActivityResult.launch(intent);
+                                            }
+                                        });
+                                    }
+                                },
+                                1600
+                        );
                         button_attack.setVisibility(View.INVISIBLE);
                         presenter.setUpChoose(0);
                         button_start.setVisibility(View.VISIBLE);
                     }
-                    Intent intent = new Intent(MainActivity.this, UpgradeActivity.class);
-                    intent.putExtra("score", presenter.getScore());
-                    intent.putExtra("inc", presenter.getInc());
-                    intent.putExtra("inc_need", presenter.getIncNeed());
-                    intent.putExtra("crit_ratio", presenter.getCritRatio());
-                    intent.putExtra("crit_ratio_need", presenter.getCritRatioNeed());
-                    intent.putExtra("crit_inc", presenter.getCritInc());
-                    startActivityResult.launch(intent);
+
                 }
             }
         });
