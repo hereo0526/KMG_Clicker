@@ -13,6 +13,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -95,10 +96,23 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         timer.schedule(timerTask, 0, 1000);
     }
 
+    private View decorView;
+    private int uiOption;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        decorView = getWindow().getDecorView();
+        uiOption = getWindow().getDecorView().getSystemUiVisibility();
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
+            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
+            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
+            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+
+        decorView.setSystemUiVisibility( uiOption );
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         button_clear = findViewById(R.id.button_clear);
@@ -146,7 +160,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         }
         if( (pref_get != null) && (pref_get.contains("inc_need")) ) {
             int saved_inc_need = pref_get.getInt("inc_need", 10);
-            presenter.setInc(saved_inc_need);
+            presenter.setIncNeed(saved_inc_need);
         }
         if( (pref_get != null) && (pref_get.contains("crit_ratio")) ) {
             int saved_crit_ratio = pref_get.getInt("crit_ratio", 1);
@@ -447,10 +461,12 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         score_text.setText(Integer.toString(presenter.getScore()));
     }
     public void setTextMyHealth(){
-        my_health.setText("HP : "+Integer.toString(presenter.getMyHealth()));
+        String myhealth = Integer.toString(presenter.getMyHealth());
+        my_health.setText("HP : "+myhealth);
     }
     public void setTextEnemyHealth(){
-        enemy_health.setText("Enemy HP : "+Integer.toString(presenter.getEnemyHealth()));
+        String enemyHealth = Integer.toString(presenter.getEnemyHealth());
+        enemy_health.setText("Enemy HP : "+enemyHealth);
     }
     public void setTextCrit(String s){
         critical_text.setText("x2");

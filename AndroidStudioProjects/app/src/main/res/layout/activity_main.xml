@@ -8,6 +8,11 @@
     tools:context=".view.MainActivity">
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#718DBD"
+    />
+    <ImageView
         android:id="@+id/image_enemy"
         android:layout_width="300dp"
         android:layout_height="300dp"
@@ -81,14 +86,15 @@
         app:layout_constraintLeft_toRightOf="@id/score_text"
         app:layout_constraintTop_toBottomOf="@id/image_enemy"/>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/teal_200"
         android:text="clear"
         android:textAllCaps="true"
-        android:textSize="15dp"
+        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_clear"
         android:layout_margin="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -104,40 +110,44 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/score_text" />
-    <Button
+    <android.widget.Button
         android:id="@+id/button_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:backgroundTint="@color/teal_200"
         android:text="start"
-        android:textSize="25dp"
-        android:layout_marginBottom="80dp"
+        android:textSize="25sp"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/button_start"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_attack"/>
-    <Button
+    <android.widget.Button
         android:id="@+id/button_attack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:backgroundTint="@color/teal_200"
         android:text="attack"
-        android:textSize="25dp"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_attack"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/button_upgrade"
         app:layout_constraintTop_toBottomOf="@id/my_health"/>
-    <Button
+    <android.widget.Button
         android:id="@+id/button_upgrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:backgroundTint="@color/teal_200"
+        android:color="#6A5475"
         android:text="upgrade"
         android:textSize="25dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_upgrade_enter"
         app:layout_constraintBottom_toBottomOf="@id/button_attack"
         app:layout_constraintLeft_toRightOf="@id/button_attack"
         app:layout_constraintRight_toRightOf="parent"

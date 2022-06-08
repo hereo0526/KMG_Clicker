@@ -48,8 +48,8 @@ public class MainModel {
     public int  getInc(){
         return this.inc;
     }
-    public void setInc(int mul){
-        this.inc = mul;
+    public void setInc(int inc){
+        this.inc = inc;
     }
 
     public void addIncNeed(){
