@@ -45,7 +45,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
     private TextView time_text;
     private TextView score_text;
     private TextView critical_text;
-    private Button button_start;
+    private Button button_fight;
     private Button button_attack;
     private Button button_upgrade;
     private TextView my_health;
@@ -122,7 +122,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
         time_text = findViewById(R.id.time_text);
         score_text = findViewById(R.id.score_text);
         critical_text = findViewById(R.id.critical_text);
-        button_start = findViewById(R.id.button_start);
+        button_fight = findViewById(R.id.button_fight);
         button_attack = findViewById(R.id.button_attack);
         button_upgrade = findViewById(R.id.button_upgrade);
         my_health = findViewById(R.id.my_health);
@@ -220,7 +220,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                 time_count = 0;
                 image_enemy.setVisibility(View.VISIBLE);
                 image_click.setVisibility(View.INVISIBLE);
-                button_start.setVisibility(View.VISIBLE);
+                button_fight.setVisibility(View.VISIBLE);
                 button_attack.setVisibility(View.INVISIBLE);
                 button_upgrade.setVisibility(View.INVISIBLE);
                 setTextTimeText("0");
@@ -246,7 +246,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                 }
             }
         });
-        button_start.setOnClickListener(new View.OnClickListener() {
+        button_fight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presenter.setScore(0);
@@ -258,7 +258,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                 tempTask();
                 presenter.setUpFlag(1);
                 image_click.setVisibility(View.VISIBLE);
-                button_start.setVisibility(View.INVISIBLE);
+                button_fight.setVisibility(View.INVISIBLE);
                 button_attack.setVisibility(View.INVISIBLE);
                 button_upgrade.setVisibility(View.INVISIBLE);
 
@@ -280,7 +280,9 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
             public void onClick(View view) {
                 if(presenter.getUpFlag() == 1) {
                     presenter.setMyAttack(presenter.getScore());
-                    button_start.setVisibility(View.VISIBLE);
+                    button_fight.setVisibility(View.VISIBLE);
+                    button_attack.setVisibility(View.INVISIBLE);
+                    button_upgrade.setVisibility(View.INVISIBLE);
                     if(presenter.getEnemyHealth() - presenter.getMyAttack() <= 0){//적 잡음
                         presenter.setEnemyHealth(0);
                         presenter.setScore(0);
@@ -318,8 +320,6 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                                                 image_enemy.setVisibility(View.VISIBLE);
                                                 image_enemy.clearAnimation();
                                                 image_enemy.startAnimation(animation_enemy_emerge);
-                                                button_attack.setVisibility(View.INVISIBLE);
-                                                button_upgrade.setVisibility(View.INVISIBLE);
                                                 presenter.setEnemyHealth(presenter.getEnemyHealthArr());
                                                 presenter.setEnemyAttack(presenter.getEnemyAttackArr());
                                                 presenter.setEnemyIndex(presenter.getEnemyIndex());
@@ -431,7 +431,7 @@ public class MainActivity<clickAllow> extends AppCompatActivity {
                         );
                         button_attack.setVisibility(View.INVISIBLE);
                         presenter.setUpChoose(0);
-                        button_start.setVisibility(View.VISIBLE);
+                        button_fight.setVisibility(View.VISIBLE);
                     }
 
                 }
