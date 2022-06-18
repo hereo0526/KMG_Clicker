@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.MainActivity"/>
+        <activity android:name=".view.FightActivity"/>
         <activity android:name=".view.UpgradeActivity"/>
     </application>
 </manifest>

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class MainModel {
+public class FightModel {
 
 /////////////////////////////////////////////////////////////////////////
     private int score = 0;
@@ -28,6 +28,8 @@ public class MainModel {
     private int up_flag = 0;
     private int up_choose = 0;
     private int click_allow = 0;
+
+    private int clear = 0;
     ArrayList<Integer> enemy_health_arr = new ArrayList<Integer>(Arrays.asList(1000, 5000, 10000));
     ArrayList<Integer> enemy_attack_arr = new ArrayList<Integer>(Arrays.asList(2, 5, 15));
 /////////////////////////////////////////////////////////////////////////
@@ -153,6 +155,13 @@ public class MainModel {
     }
     public void setCLickAllow(int click_allow){
         this.click_allow = click_allow;
+    }
+
+    public int getClear(){
+        return this.clear;
+    }
+    public void setClear(int clear){
+        this.clear = clear;
     }
 /////////////////////////////////////////////////////////////////////////
     public void addScoreCrit(){

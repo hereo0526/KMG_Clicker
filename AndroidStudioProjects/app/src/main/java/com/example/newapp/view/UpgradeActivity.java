@@ -100,7 +100,7 @@ public class UpgradeActivity extends AppCompatActivity {
         image_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FightActivity.class);
                 intent.putExtra("score_up", presenter.getScore());
                 intent.putExtra("inc_up", presenter.getInc());
                 intent.putExtra("inc_need_up", presenter.getIncNeed());

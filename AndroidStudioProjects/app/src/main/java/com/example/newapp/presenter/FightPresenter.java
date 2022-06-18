@@ -1,11 +1,11 @@
 package com.example.newapp.presenter;
 
-import com.example.newapp.model.MainModel;
-import com.example.newapp.view.MainActivity;
+import com.example.newapp.model.FightModel;
+import com.example.newapp.view.FightActivity;
 
-public class MainPresenter {
+public class FightPresenter {
 
-    MainModel model = new MainModel();
+    FightModel model = new FightModel();
 
     public void addScore(){
         model.addScore();
@@ -135,5 +135,12 @@ public class MainPresenter {
     }
     public void setClickAllow(int i){
         model.setCLickAllow(i);
+    }
+
+    public int getClear(){
+        return model.getClear();
+    }
+    public void setClear(int i){
+        model.setClear(i);
     }
 }
