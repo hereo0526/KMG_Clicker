@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,11 +19,92 @@
         app:layout_constraintTop_toTopOf="parent"
         />
     -->
-    <ImageView
+    <android.widget.Button
+        android:id="@+id/button_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clear"
+        android:textAllCaps="true"
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_clear"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <ProgressBar
+        android:id="@+id/enemy_progress"
+        android:layout_width="150dp"
+        android:layout_height="27dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:progress="100"
+        android:progressTint="@color/green"
+        android:progressBackgroundTint="@color/lightgray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/image_enemy"
+        />
+    <!--
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="#718DBD"
-    />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/button_clear"
+        >
+        <ImageView
+            android:id="@+id/enemy_HP_bar"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/enemy_hp_bar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/enemy_HP_background"
+            />
+        <ImageView
+            android:id="@+id/enemy_HP_background"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/enemy_hp_background"
+            app:layout_constraintTop_toTopOf="@id/enemy_HP_bar"
+            app:layout_constraintBottom_toBottomOf="@id/enemy_HP_bar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+        <TextView
+            android:id="@+id/enemy_health"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1000"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/enemy_HP_bar"
+            app:layout_constraintBottom_toBottomOf="@id/enemy_HP_bar"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+-->
+    <TextView
+        android:id="@+id/enemy_health"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="1000"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/enemy_progress"
+        app:layout_constraintBottom_toBottomOf="@id/enemy_progress"
+        />
     <ImageView
         android:id="@+id/image_enemy"
         android:layout_width="300dp"
@@ -42,19 +124,6 @@
         android:src="@drawable/sword_cut"
         android:layout_marginTop="200dp"
         app:layout_constraintBottom_toTopOf="@id/score_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/enemy_health"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Enemy HP : 1000"
-        android:textSize="20dp"
-        android:textColor="#000000"
-        android:layout_marginTop="70dp"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -101,19 +170,6 @@
         app:layout_constraintLeft_toRightOf="@id/score_text"
         app:layout_constraintTop_toBottomOf="@id/image_enemy"/>
 
-    <android.widget.Button
-        android:id="@+id/button_clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="clear"
-        android:textAllCaps="true"
-        android:textSize="17sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/button_clear"
-        android:layout_margin="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
     <TextView
         android:id="@+id/my_health"
         android:layout_width="wrap_content"
@@ -142,20 +198,6 @@
         app:layout_constraintTop_toBottomOf="@id/button_attack"/>
 
     <android.widget.Button
-        android:id="@+id/button_attack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="attack"
-        android:textSize="25sp"
-        android:textColor="#ffffff"
-        android:background="@drawable/button_attack"
-        android:layout_marginBottom="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_upgrade"
-        app:layout_constraintTop_toBottomOf="@id/my_health"/>
-    <android.widget.Button
         android:id="@+id/button_upgrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -164,11 +206,39 @@
         android:text="upgrade"
         android:textSize="25dp"
         android:textColor="#ffffff"
+        android:layout_marginBottom="150dp"
         android:background="@drawable/button_upgrade_enter"
-        app:layout_constraintBottom_toBottomOf="@id/button_attack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_attack"
+        app:layout_constraintTop_toBottomOf="@id/my_health"
+        />
+    <android.widget.Button
+        android:id="@+id/button_attack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="attack"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_attack"
+        app:layout_constraintBottom_toBottomOf="@id/button_upgrade"
+        app:layout_constraintLeft_toRightOf="@id/button_upgrade"
+        app:layout_constraintRight_toLeftOf="@id/button_run"
+        app:layout_constraintTop_toTopOf="@id/button_upgrade"/>
+    <android.widget.Button
+        android:id="@+id/button_run"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Run"
+        android:textSize="25sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_attack"
+        app:layout_constraintBottom_toBottomOf="@id/button_upgrade"
         app:layout_constraintLeft_toRightOf="@id/button_attack"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/button_attack"/>
+        app:layout_constraintTop_toTopOf="@id/button_upgrade"/>
     <ImageView
         android:id="@+id/image_click"
         android:layout_width="150dp"
