@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.newapp.R;
@@ -31,15 +33,14 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
 
     DecimalFormat formatter = new DecimalFormat("###,###");
 
-    private ImageView enemy_hp_bar;
-    private ImageView enemy_hp_background;
+    private Button button_clear;
+    private ProgressBar progress_enemy;
     private ImageView image_enemy;
     private ImageView image_sword_cut;
     private ImageView image_click;
     private TextView time_text;
     private TextView score_text;
     private TextView critical_text;
-    private Button button_clear;
     private Button button_fight;
     private Button button_upgrade;
     private Button button_attack;
@@ -111,21 +112,20 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         decorView.setSystemUiVisibility( uiOption );
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        enemy_hp_bar        = findViewById(R.id.enemy_HP_bar);
-        enemy_hp_background = findViewById(R.id.enemy_HP_background);
-        image_enemy         = findViewById(R.id.image_enemy);
-        image_sword_cut     = findViewById(R.id.image_sword_cut);
-        image_click         = findViewById(R.id.image_click);
-        time_text           = findViewById(R.id.time_text);
-        score_text          = findViewById(R.id.score_text);
-        critical_text       = findViewById(R.id.critical_text);
-        button_clear        = findViewById(R.id.button_clear);
-        button_fight        = findViewById(R.id.button_fight);
-        button_upgrade      = findViewById(R.id.button_upgrade);
-        button_attack       = findViewById(R.id.button_attack);
-        button_run          = findViewById(R.id.button_run);
-        my_health           = findViewById(R.id.my_health);
-        enemy_health        = findViewById(R.id.enemy_health);
+        button_clear    = findViewById(R.id.button_clear);
+        progress_enemy  = findViewById(R.id.progress_enemy);
+        image_enemy     = findViewById(R.id.image_enemy);
+        image_sword_cut = findViewById(R.id.image_sword_cut);
+        image_click     = findViewById(R.id.image_click);
+        time_text       = findViewById(R.id.time_text);
+        score_text      = findViewById(R.id.score_text);
+        critical_text   = findViewById(R.id.critical_text);
+        button_fight    = findViewById(R.id.button_fight);
+        button_upgrade  = findViewById(R.id.button_upgrade);
+        button_attack   = findViewById(R.id.button_attack);
+        button_run      = findViewById(R.id.button_run);
+        my_health       = findViewById(R.id.my_health);
+        enemy_health    = findViewById(R.id.enemy_health);
 
         image_sword_cut.setVisibility(View.INVISIBLE);
         image_click.setVisibility(View.INVISIBLE);
@@ -222,6 +222,10 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                 button_fight.setVisibility(View.VISIBLE);
                 button_attack.setVisibility(View.INVISIBLE);
                 button_upgrade.setVisibility(View.INVISIBLE);
+                progress_enemy.setProgress(100);
+                progress_enemy.getIndeterminateDrawable().setColorFilter(
+                        getResources().getColor(R.color.green),
+                        android.graphics.PorterDuff.Mode.SRC_IN);
                 setTextTimeText("0");
                 setTextAll();
             }
@@ -409,10 +413,11 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                         animation_sword_cut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sword_cut);
                         image_sword_cut.startAnimation(animation_sword_cut);
 
-                        int enemy_hp_width;
-                        enemy_hp_width = (presenter.getEnemyHealth()/presenter.getEnemyHealthArr()) * 200;
-                        enemy_hp_bar.getLayoutParams().width = enemy_hp_width;
-                        enemy_hp_bar.requestLayout();
+                        progress_enemy.setProgress((int)((double)presenter.getEnemyHealth()/(double)presenter.getEnemyHealthArr()*100.0));
+                        if(progress_enemy.getProgress() < 30)
+                            progress_enemy.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                        else if(progress_enemy.getProgress() < 60)
+                            progress_enemy.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.yellow)));
                         /////////////////적이 피해를 입는 모션
 
                         /////////////////

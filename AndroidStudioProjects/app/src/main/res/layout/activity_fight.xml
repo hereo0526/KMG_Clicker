@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
         />
     <ProgressBar
-        android:id="@+id/enemy_progress"
+        android:id="@+id/progress_enemy"
         android:layout_width="150dp"
         android:layout_height="27dp"
         style="@android:style/Widget.ProgressBar.Horizontal"
@@ -44,53 +44,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/image_enemy"
         />
-    <!--
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/button_clear"
-        >
-        <ImageView
-            android:id="@+id/enemy_HP_bar"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:src="@drawable/enemy_hp_bar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/enemy_HP_background"
-            />
-        <ImageView
-            android:id="@+id/enemy_HP_background"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/enemy_hp_background"
-            app:layout_constraintTop_toTopOf="@id/enemy_HP_bar"
-            app:layout_constraintBottom_toBottomOf="@id/enemy_HP_bar"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-        <TextView
-            android:id="@+id/enemy_health"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="1000"
-            android:textSize="20dp"
-            android:textColor="#000000"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/enemy_HP_bar"
-            app:layout_constraintBottom_toBottomOf="@id/enemy_HP_bar"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
--->
     <TextView
         android:id="@+id/enemy_health"
         android:layout_width="wrap_content"
@@ -99,11 +52,12 @@
         android:text="1000"
         android:textSize="20dp"
         android:textColor="#000000"
+        android:fontFamily="@font/play_regular"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/enemy_progress"
-        app:layout_constraintBottom_toBottomOf="@id/enemy_progress"
+        app:layout_constraintTop_toTopOf="@id/progress_enemy"
+        app:layout_constraintBottom_toBottomOf="@id/progress_enemy"
         />
     <ImageView
         android:id="@+id/image_enemy"
