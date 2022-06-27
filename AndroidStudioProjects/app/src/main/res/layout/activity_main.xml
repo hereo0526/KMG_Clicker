@@ -5,18 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
-<!--
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src = "@drawable/background_main"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <android.widget.Button
+        android:id="@+id/button_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clear"
+        android:textAllCaps="true"
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_clear"
+        android:layout_margin="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-        -->
     <android.widget.Button
         android:id="@+id/button_reinforce"
         android:layout_width="wrap_content"

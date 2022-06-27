@@ -15,6 +15,7 @@ import com.example.newapp.R;
 import com.example.newapp.presenter.UpgradePresenter;
 
 public class UpgradeActivity extends AppCompatActivity {
+    UpgradePresenter presenter = new UpgradePresenter();
 
     private TextView score_text_upgrade;
 
@@ -30,7 +31,6 @@ public class UpgradeActivity extends AppCompatActivity {
     private Button button_clear;
     private ImageView image_back;
 
-    UpgradePresenter presenter = new UpgradePresenter();
 
     private View decorView;
     private int uiOption;
