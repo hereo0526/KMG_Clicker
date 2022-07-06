@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         button_reinforce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(getApplicationContext(), UpgradeActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), UpgradeActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -30,7 +30,7 @@ public class FightModel {
     private int click_allow = 0;
 
     private int clear = 0;
-    ArrayList<Integer> enemy_health_arr = new ArrayList<Integer>(Arrays.asList(1000, 5000, 10000));
+    ArrayList<Integer> enemy_health_arr = new ArrayList<Integer>(Arrays.asList(1000, 2000, 10000));
     ArrayList<Integer> enemy_attack_arr = new ArrayList<Integer>(Arrays.asList(2, 5, 15));
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////

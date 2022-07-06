@@ -5,7 +5,7 @@ import com.example.newapp.model.MainModel;
 public class MainPresenter {
     MainModel model = new MainModel();
 
-    public void addScore(){
+    public void addMoney(){
         model.addScore();
     }
     public int  getScore(){
