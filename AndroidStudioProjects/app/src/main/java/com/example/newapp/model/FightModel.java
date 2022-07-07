@@ -10,17 +10,13 @@ public class FightModel {
     private int score = 0;
     private int inc = 1;
     private int inc_need = 10;
-
     private int crit_ratio = 1;
     private int crit_ratio_need = 10;
-
-    private int crit_inc = 1;
-
     private int crit_check = 0;
+    private int point = 0;
 
     private int my_health = 100;
     private int my_attack = 10;
-
     private int enemy_health = 1000;
     private int enemy_attack = 2;
     private int enemy_index = 0;
@@ -29,7 +25,11 @@ public class FightModel {
     private int up_choose = 0;
     private int click_allow = 0;
 
+    private int max = 0;
+    private int flag_enemy_down = 0;
+
     private int clear = 0;
+
     ArrayList<Integer> enemy_health_arr = new ArrayList<Integer>(Arrays.asList(1000, 2000, 10000));
     ArrayList<Integer> enemy_attack_arr = new ArrayList<Integer>(Arrays.asList(2, 5, 15));
 /////////////////////////////////////////////////////////////////////////
@@ -84,14 +84,11 @@ public class FightModel {
         this.crit_ratio_need = crit_ratio_need;
     }
 
-    public void addCritInc(){
-        this.crit_inc += 1;
+    public int  getPoint(){
+        return this.point;
     }
-    public int  getCritInc(){
-        return this.crit_inc;
-    }
-    public void setCritInc(int crit_inc){
-        this.crit_inc = crit_inc;
+    public void setPoint(int point){
+        this.point = point;
     }
 
     public int getMyHealth(){
@@ -162,6 +159,20 @@ public class FightModel {
     }
     public void setClear(int clear){
         this.clear = clear;
+    }
+
+    public int getMax(){
+        return this.max;
+    }
+    public void setMax(int max){
+        this.max = max;
+    }
+
+    public int getDownFlag(){
+        return this.flag_enemy_down;
+    }
+    public void setDownFlag(int flag_enemy_down){
+        this.flag_enemy_down = flag_enemy_down;
     }
 /////////////////////////////////////////////////////////////////////////
     public void addScoreCrit(){

@@ -57,14 +57,11 @@ public class FightPresenter {
         model.setCritRatioNeed(i);
     }
 
-    public void addCritInc(){
-        model.addCritInc();
+    public int  getPoint(){
+        return model.getPoint();
     }
-    public int  getCritInc(){
-        return model.getCritInc();
-    }
-    public void setCritInc(int i){
-        model.setCritInc(i);
+    public void setPoint(int i){
+        model.setPoint(i);
     }
 
     public void addScoreCrit(){
@@ -142,5 +139,19 @@ public class FightPresenter {
     }
     public void setClear(int i){
         model.setClear(i);
+    }
+
+    public int getMax(){
+        return model.getMax();
+    }
+    public void setMax(int i){
+        model.setMax(i);
+    }
+
+    public int getDownFlag(){
+        return model.getDownFlag();
+    }
+    public void setDownFlag(int i){
+        model.setDownFlag(i);
     }
 }

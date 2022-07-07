@@ -55,14 +55,11 @@ public class MainPresenter {
         model.setCritRatioNeed(i);
     }
 
-    public void addCritInc(){
-        model.addCritInc();
+    public int  getPoint(){
+        return model.getPoint();
     }
-    public int  getCritInc(){
-        return model.getCritInc();
-    }
-    public void setCritInc(int i){
-        model.setCritInc(i);
+    public void setPoint(int i){
+        model.setPoint(i);
     }
 
     public int getMyHealth(){

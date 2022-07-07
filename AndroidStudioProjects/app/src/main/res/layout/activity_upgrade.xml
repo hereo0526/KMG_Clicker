@@ -68,38 +68,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/crit_ratio_text"
         app:layout_constraintBottom_toBottomOf="@+id/crit_ratio_text"/>
-<!--
-    <TextView
-        android:id="@+id/crit_inc_text"
+
+    <android.widget.Button
+        android:id="@+id/image_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="50dp"
+        android:text=""
+        android:textSize="17sp"
+        android:textColor="#ffffff"
+        android:drawableLeft="@drawable/back_size"
+        android:paddingLeft="26.5dp"
+        android:background="@drawable/button_clear"
+        android:layout_marginTop="150dp"
         app:layout_constraintTop_toBottomOf="@id/crit_ratio_text"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_add_inc"/>
-    <Button
-        android:id="@+id/button_crit_inc"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/teal_200"
-        android:text="크리티컬 점수+1"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_margin="20dp"
-        app:layout_constraintLeft_toRightOf="@id/crit_inc_text"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_crit_ratio"/>
--->
-    <ImageView
-        android:id="@+id/image_back"
-        android:src="@drawable/back"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_crit_ratio"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

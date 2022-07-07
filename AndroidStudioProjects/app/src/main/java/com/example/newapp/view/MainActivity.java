@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.newapp.R;
@@ -29,6 +33,18 @@ public class MainActivity extends AppCompatActivity {
 
         clear_check = 0;
 
+        ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == RESULT_OK){
+                            Intent intent = result.getData();
+                            presenter.setPoint(presenter.getPoint()+intent.getIntExtra("point", presenter.getPoint()));
+                        }
+                    }
+                }
+        );
         button_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         button_reinforce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UpgradeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ReinActivity.class);
+                intent.putExtra("point", presenter.getPoint());
+                setResult(RESULT_OK);
                 startActivity(intent);
             }
         });
