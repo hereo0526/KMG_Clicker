@@ -13,25 +13,27 @@ public class FightModel {
     private int crit_ratio = 1;
     private int crit_ratio_need = 10;
     private int crit_check = 0;
-    private int point = 0;
 
     private int my_health = 100;
-    private int my_attack = 10;
-    private int enemy_health = 1000;
-    private int enemy_attack = 2;
+    private int my_attack = 0;
+    private int enemy_health = 0;
+    private int enemy_attack = 0;
     private int enemy_index = 0;
 
     private int up_flag = 0;
     private int up_choose = 0;
     private int click_allow = 0;
 
-    private int max = 0;
+    private int max = 2;
     private int flag_enemy_down = 0;
 
     private int clear = 0;
 
-    ArrayList<Integer> enemy_health_arr = new ArrayList<Integer>(Arrays.asList(1000, 2000, 10000));
-    ArrayList<Integer> enemy_attack_arr = new ArrayList<Integer>(Arrays.asList(2, 5, 15));
+    private int index_stage = 1;
+
+    int health_1[]  = {100, 200, 400};
+    int attack_1[]  = {2, 5, 15};
+    int point[] = {0, 1, 3, 5, 10};
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
     public void addScore(){
@@ -85,10 +87,14 @@ public class FightModel {
     }
 
     public int  getPoint(){
-        return this.point;
+        return this.point[index_stage];
     }
-    public void setPoint(int point){
-        this.point = point;
+
+    public int  getIndexStage(){
+        return this.index_stage;
+    }
+    public void setIndexStage(int index_stage){
+        this.index_stage = index_stage;
     }
 
     public int getMyHealth(){
@@ -120,10 +126,10 @@ public class FightModel {
     }
 
     public int getEnemyHealthArr(){
-        return enemy_health_arr.get(enemy_index);
+        return health_1[enemy_index];
     }
     public int getEnemyAttackArr(){
-        return enemy_attack_arr.get(enemy_index);
+        return attack_1[enemy_index];
     }
 
     public int getEnemyIndex(){

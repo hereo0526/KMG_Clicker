@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     MainPresenter presenter = new MainPresenter();
 
     private Button button_clear;
+    private TextView text_point;
     private Button button_reinforce;
     private Button button_adventure;
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button_clear     = findViewById(R.id.button_clear);
+        text_point       = findViewById(R.id.text_point);
         button_reinforce = findViewById(R.id.button_reinforce);
         button_adventure = findViewById(R.id.button_adventure);
 
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                         if(result.getResultCode() == RESULT_OK){
                             Intent intent = result.getData();
                             presenter.setPoint(presenter.getPoint()+intent.getIntExtra("point", presenter.getPoint()));
+                            setTextPoint();
                         }
                     }
                 }
@@ -65,10 +69,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FightActivity.class);
-                intent.putExtra("clear_check", clear_check);
-                setResult(RESULT_OK, intent);
                 startActivity(intent);
             }
         });
+    }
+    public void setTextPoint(){
+        text_point.setText(Integer.toString(presenter.getPoint()));
     }
 }

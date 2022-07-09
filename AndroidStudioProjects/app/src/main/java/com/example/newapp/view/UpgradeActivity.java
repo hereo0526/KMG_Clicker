@@ -28,8 +28,7 @@ public class UpgradeActivity extends AppCompatActivity {
     //private Button button_crit_inc;
     //private TextView crit_inc_text;
 
-    private Button button_clear;
-    private ImageView image_back;
+    private Button button_back;
 
 
     private View decorView;
@@ -55,10 +54,7 @@ public class UpgradeActivity extends AppCompatActivity {
         inc_need_text = findViewById(R.id.inc_need_text);
         button_crit_ratio = findViewById(R.id.button_crit_ratio);
         crit_ratio_text = findViewById(R.id.crit_ratio_text);
-        //button_crit_inc = findViewById(R.id.button_crit_inc);
-        //crit_inc_text = findViewById(R.id.crit_inc_text);
-        button_clear = findViewById(R.id.button_clear);
-        image_back = findViewById(R.id.image_back);
+        button_back = findViewById(R.id.button_back);
 
         Intent intent = getIntent();
 
@@ -97,7 +93,7 @@ public class UpgradeActivity extends AppCompatActivity {
                 }
             }
         });
-        image_back.setOnClickListener(new View.OnClickListener() {
+        button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FightActivity.class);

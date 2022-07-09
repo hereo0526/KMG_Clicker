@@ -60,8 +60,12 @@ public class FightPresenter {
     public int  getPoint(){
         return model.getPoint();
     }
-    public void setPoint(int i){
-        model.setPoint(i);
+
+    public int  getIndexStage(){
+        return model.getIndexStage();
+    }
+    public void setIndexStage(int i){
+        model.setIndexStage(i);
     }
 
     public void addScoreCrit(){

@@ -74,7 +74,6 @@ public class MainModel {
         this.crit_ratio_need = crit_ratio_need;
     }
 
-
     public int  getPoint(){
         return this.point;
     }

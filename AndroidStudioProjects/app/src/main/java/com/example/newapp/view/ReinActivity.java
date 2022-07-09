@@ -51,11 +51,14 @@ public class ReinActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == RESULT_OK){
                             Intent intent = result.getData();
-                            presenter.setPoint(presenter.getPoint()+intent.getIntExtra("point", presenter.getPoint()));
+                            presenter.setPoint(intent.getIntExtra("point_rein", presenter.getPoint()));
                         }
                     }
                 }
         );
+        setTextPoint();
+        setTextNextLevelNeed();
+        setTextReinNeed();
 
         int resId_default = getResources().getIdentifier(str_weapon[presenter.getIndexLevel()], "drawable", packName);
         image_weapon.setImageResource(resId_default);
@@ -63,7 +66,7 @@ public class ReinActivity extends AppCompatActivity {
         button_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ReinActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("point", presenter.getPoint());
                 setResult(RESULT_OK);
                 finish();
@@ -74,9 +77,12 @@ public class ReinActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(presenter.getPoint() > presenter.getLevelNeed()){
+                    presenter.setPoint(presenter.getPoint()-presenter.getLevelNeed());
+                    setTextPoint();
                     presenter.setIndexLevel(presenter.getIndexLevel()+1);
                     int resId_default = getResources().getIdentifier(str_weapon[presenter.getIndexLevel()], "drawable", packName);
                     image_weapon.setImageResource(resId_default);
+                    setTextNextLevelNeed();
                 }
             }
         });
@@ -85,11 +91,21 @@ public class ReinActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(presenter.getPoint() > presenter.getReinNeed()){
-                    presenter.setIndexLevel(presenter.getIndexLevel()+1);
-                    int resId_default = getResources().getIdentifier(str_weapon[presenter.getIndexLevel()], "drawable", packName);
-                    image_weapon.setImageResource(resId_default);
+                    presenter.setPoint(presenter.getPoint()-presenter.getReinNeed());
+                    setTextPoint();
+                    presenter.setIndexRein(presenter.getIndexRein()+1);
+                    setTextReinNeed();
                 }
             }
         });
+    }
+    public void setTextPoint(){
+        text_point.setText(Integer.toString(presenter.getPoint()));
+    }
+    public void setTextNextLevelNeed(){
+        button_next_level.setText("비용 : "+presenter.getLevelNeed());
+    }
+    public void setTextReinNeed(){
+        button_rein.setText("비용 : "+presenter.getReinNeed());
     }
 }

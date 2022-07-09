@@ -17,24 +17,24 @@ public class ReinModel {
     }
 
     public int getIndexLevel(){
-        return index_level;
+        return this.index_level;
     }
     public void setIndexLevel(int index_level){
         this.index_level = index_level;
     }
 
     public int getIndexRein(){
-        return index_rein;
+        return this.index_rein;
     }
     public void setIndexRein(int index_rein){
         this.index_rein = index_rein;
     }
 
     public int getLevelNeed(){
-        return next_level_need[index_level];
+        return this.next_level_need[index_level];
     }
     public int getReinNeed(){
-        return rein_need[index_rein];
+        return this.rein_need[index_rein];
     }
 
 

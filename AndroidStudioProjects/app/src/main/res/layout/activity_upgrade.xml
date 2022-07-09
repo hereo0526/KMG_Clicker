@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/crit_ratio_text"/>
 
     <android.widget.Button
-        android:id="@+id/image_back"
+        android:id="@+id/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""

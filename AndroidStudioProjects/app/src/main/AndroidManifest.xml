@@ -20,5 +20,6 @@
         <activity android:name=".view.MainActivity"/>
         <activity android:name=".view.FightActivity"/>
         <activity android:name=".view.UpgradeActivity"/>
+        <activity android:name=".view.ReinActivity"/>
     </application>
 </manifest>

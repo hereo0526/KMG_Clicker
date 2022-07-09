@@ -20,7 +20,7 @@
         android:id="@+id/button_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="start"
+        android:text="시작"
         android:textSize="40sp"
         android:textColor="#ffffff"
         android:background="@drawable/button_start"
