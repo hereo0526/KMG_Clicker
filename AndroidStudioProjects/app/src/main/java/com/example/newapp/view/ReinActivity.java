@@ -41,21 +41,13 @@ public class ReinActivity extends AppCompatActivity {
         button_next_level = findViewById(R.id.button_next_level);
         button_rein       = findViewById(R.id.button_rein);
 
-        String[] str_weapon = {"@drawable/weapon1", "@drawable/weapon2", "@drawable/weapon3"};
+        String[] str_weapon = {"0", "@drawable/weapon1", "@drawable/weapon2", "@drawable/weapon3"};
         String packName = this.getPackageName();
 
-        ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if(result.getResultCode() == RESULT_OK){
-                            Intent intent = result.getData();
-                            presenter.setPoint(intent.getIntExtra("point_rein", presenter.getPoint()));
-                        }
-                    }
-                }
-        );
+
+        Intent intent = getIntent();
+        presenter.setPoint(intent.getIntExtra("point", presenter.getPoint()));
+        presenter.setIndexLevel(intent.getIntExtra("weapon_level", presenter.getIndexLevel()));
         setTextPoint();
         setTextNextLevelNeed();
         setTextReinNeed();
@@ -68,7 +60,8 @@ public class ReinActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("point", presenter.getPoint());
-                setResult(RESULT_OK);
+                intent.putExtra("weapon_level", presenter.getIndexLevel());
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });

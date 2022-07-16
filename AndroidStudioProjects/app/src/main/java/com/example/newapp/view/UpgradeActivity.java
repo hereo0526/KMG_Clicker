@@ -25,9 +25,6 @@ public class UpgradeActivity extends AppCompatActivity {
     private Button button_crit_ratio;
     private TextView crit_ratio_text;
 
-    //private Button button_crit_inc;
-    //private TextView crit_inc_text;
-
     private Button button_back;
 
 
@@ -40,12 +37,9 @@ public class UpgradeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upgrade);
         decorView = getWindow().getDecorView();
         uiOption = getWindow().getDecorView().getSystemUiVisibility();
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH )
-            uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN )
-            uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT )
-            uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        uiOption |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        uiOption |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        uiOption |= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         decorView.setSystemUiVisibility( uiOption );
 

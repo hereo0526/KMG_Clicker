@@ -203,59 +203,16 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         String[] enemy_attack_id = {"@drawable/wolf", "@drawable/boss1_attack"};
         String packName = this.getPackageName();
 
-        SharedPreferences pref_get = getSharedPreferences("preferences", MODE_PRIVATE);
-        if( (pref_get != null) && (pref_get.contains("score")) ) {
-            int saved_score = pref_get.getInt("score", 0);
-            presenter.setScore(saved_score);
-            setTextScore();
-        }
-        if( (pref_get != null) && (pref_get.contains("my_hp")) ) {
-            int saved_my_hp = pref_get.getInt("my_hp", 100);
-            presenter.setMyHealth(saved_my_hp);
-            setTextMyHealth();
-        }
-        if( (pref_get != null) && (pref_get.contains("enemy_hp")) ) {
-            int saved_enemy_hp = pref_get.getInt("enemy_hp", 1000);
-            presenter.setEnemyHealth(saved_enemy_hp);
-            setTextEnemyHealth();
-        }
-        if( (pref_get != null) && (pref_get.contains("inc")) ) {
-            int saved_inc = pref_get.getInt("inc", 1);
-            presenter.setInc(saved_inc);
-        }
-        if( (pref_get != null) && (pref_get.contains("inc_need")) ) {
-            int saved_inc_need = pref_get.getInt("inc_need", 10);
-            presenter.setIncNeed(saved_inc_need);
-        }
-        if( (pref_get != null) && (pref_get.contains("crit_ratio")) ) {
-            int saved_crit_ratio = pref_get.getInt("crit_ratio", 1);
-            presenter.setCritRatio(saved_crit_ratio);
-        }
-        if( (pref_get != null) && (pref_get.contains("crit_ratio_need")) ) {
-            int saved_crit_ratio_need = pref_get.getInt("crit_ratio_need", 10);
-            presenter.setCritRatioNeed(saved_crit_ratio_need);
-        }
-        if( (pref_get != null) && (pref_get.contains("crit_inc")) ) {
-            int saved_crit_inc = pref_get.getInt("crit_inc", 1);
-            presenter.setCritRatio(saved_crit_inc);
-        }
-        if( (pref_get != null) && (pref_get.contains("enemy_index")) ) {
-            int saved_enemy_index = pref_get.getInt("enemy_index", 1);
-            presenter.setEnemyIndex(saved_enemy_index);
-        }
+
         ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if(result.getResultCode() == RESULT_OK){
-                            Intent intent = result.getData();
-                            presenter.setScore(intent.getIntExtra("score_up", presenter.getScore()));
-                            presenter.setInc(intent.getIntExtra("inc_up", presenter.getInc()));
-                            presenter.setIncNeed(intent.getIntExtra("inc_need_up", presenter.getIncNeed()));
-                            presenter.setCritRatio(intent.getIntExtra("crit_ratio_up", presenter.getCritRatio()));
-                            presenter.setCritRatioNeed(intent.getIntExtra("crit_ratio_need_up", presenter.getCritRatioNeed()));
                             clear();
+                            Intent intent = getIntent();
+                            presenter.setInc(intent.getIntExtra("weapon_level", presenter.getInc()));
                             setTextAll();
                         }
                     }
@@ -298,8 +255,10 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                 }
             }
         });
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
+
         button_fight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -319,8 +278,17 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
 
             }
         });
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
+        ///     ///   /////////     ///////    /////////       ///      ////////    ////////
+        ///     ///   ///    ///   ///         ///    ///     /////     ///   ///   ///
+        ///     ///   /////////   ///    ///   ////////      //  ///    ///    ///  //////
+        ///     ///   ///          ///    ///  ///   ///    /////////   ///   ///   ///
+          ///////     ///           ///////    ///    ///  ///     ///  ////////    ////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
         button_upgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -385,6 +353,17 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                 }
             }
         });
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
+            ///     /////////  /////////     ///        //////     ///   ///
+           /////       ///        ///       /////     ///    ///   /// ///
+          //  ///      ///        ///      //  ///    ///          /////
+         /////////     ///        ///     /////////   ///    ///   /// ///
+        ///     ///    ///        ///    ///     ///    //////     ///   ///
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
         button_attack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -526,34 +505,22 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                 }
             }
         });
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
         button_stage_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("point", presenter.getPoint());
-                setResult(RESULT_OK);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SharedPreferences pref = getSharedPreferences("preferences",MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        presenter.setScore(0);
-        editor.putInt("score", presenter.getScore() );
-        editor.putInt("inc_need", presenter.getIncNeed() );
-        editor.putInt("inc", presenter.getInc() );
-        editor.putInt("crit_ratio", presenter.getCritRatio());
-        editor.putInt("crit_ratio_need", presenter.getCritRatioNeed());
-        editor.putInt("my_hp", presenter.getMyHealth());
-        editor.putInt("enemy_hp", presenter.getEnemyHealth());
-        editor.putInt("enemy_index", presenter.getEnemyIndex());
-
-        editor.apply();
-        editor.commit();
     }
 
     public void setTextScore(){
