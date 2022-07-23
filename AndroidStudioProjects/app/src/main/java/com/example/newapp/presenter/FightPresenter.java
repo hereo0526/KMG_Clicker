@@ -95,6 +95,9 @@ public class FightPresenter {
     public void setEnemyHealth(int i){
         model.setEnemyHealth(i);
     }
+    public int getEnemyHealthDefault(){
+        return model.getEnemyHealthDefault();
+    }
 
     public int getEnemyAttack(){
         return model.getEnemyAttack();
@@ -102,12 +105,12 @@ public class FightPresenter {
     public void setEnemyAttack(int i){
         model.setEnemyAttack(i);
     }
-
-    public int getEnemyHealthArr(){
-        return model.getEnemyHealthArr();
+    public int getEnemyAttackDefault(){
+        return model.getEnemyHealthDefault();
     }
-    public int getEnemyAttackArr() {
-        return model.getEnemyAttackArr();
+
+    public void setEnemyDefault(){
+        model.setEnemyDefault();
     }
 
     public int getEnemyIndex(){

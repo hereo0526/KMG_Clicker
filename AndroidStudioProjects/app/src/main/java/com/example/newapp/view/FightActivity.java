@@ -108,8 +108,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         presenter.setCritRatioNeed(10);
         presenter.setMyHealth(100);
         presenter.setEnemyIndex(0);
-        presenter.setEnemyHealth(presenter.getEnemyHealthArr());
-        presenter.setEnemyAttack(presenter.getEnemyAttackArr());
+        presenter.setEnemyDefault();
         time_count = 0;
         image_enemy.setVisibility(View.VISIBLE);
         image_click.setVisibility(View.INVISIBLE);
@@ -121,11 +120,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                 getResources().getColor(R.color.green),
                 android.graphics.PorterDuff.Mode.SRC_IN);
         progress_my.setProgress(100);
-        progress_my.getIndeterminateDrawable().setColorFilter(
-                getResources().getColor(R.color.green),
-                android.graphics.PorterDuff.Mode.SRC_IN);
         setTextTimeText("0");
-        setTextAll();
     }
 
     public void stageClear(){
@@ -199,8 +194,8 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         text_point.setVisibility(View.INVISIBLE);
         button_stage_clear.setVisibility(View.INVISIBLE);
 
-        String[] enemy_default_id = {"@drawable/wolf", "@drawable/boss1_default"};
-        String[] enemy_attack_id = {"@drawable/wolf", "@drawable/boss1_attack"};
+        String[] default_1 = {"@drawable/wolf", "@drawable/boss1_default"};
+        String[] attack_1  = {"@drawable/wolf", "@drawable/boss1_attack"};
         String packName = this.getPackageName();
 
 
@@ -212,7 +207,9 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                         if(result.getResultCode() == RESULT_OK){
                             clear();
                             Intent intent = getIntent();
+                            presenter.setIndexStage(intent.getIntExtra("stage_level", presenter.getIndexStage()));
                             presenter.setInc(intent.getIntExtra("weapon_level", presenter.getInc()));
+                            presenter.setEnemyDefault();
                             setTextAll();
                         }
                     }
@@ -222,6 +219,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////
 
         clear();
+        setTextAll();
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -303,7 +301,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                             public void run() {
                                                 presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
                                                 setTextMyHealth();
-                                                int resId_attack = getResources().getIdentifier(enemy_attack_id[presenter.getEnemyIndex()], "drawable", packName);
+                                                int resId_attack = getResources().getIdentifier(attack_1[presenter.getEnemyIndex()], "drawable", packName);
                                                 image_enemy.setImageResource(resId_attack);
                                                 animation_enemy_attack = null;
                                                 animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
@@ -321,7 +319,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                         runOnUiThread(new Runnable(){
                                             @Override
                                             public void run() {
-                                                int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
+                                                int resId_default = getResources().getIdentifier(default_1[presenter.getEnemyIndex()], "drawable", packName);
                                                 image_enemy.setImageResource(resId_default);
                                                 Intent intent = new Intent(FightActivity.this, UpgradeActivity.class);
                                                 intent.putExtra("score", presenter.getScore());
@@ -409,9 +407,8 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                                                     stageClear();
                                                                 }
                                                                 else {
-                                                                    int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
-                                                                    presenter.setEnemyHealth(presenter.getEnemyHealthArr());
-                                                                    presenter.setEnemyAttack(presenter.getEnemyAttackArr());
+                                                                    int resId_default = getResources().getIdentifier(default_1[presenter.getEnemyIndex()], "drawable", packName);
+                                                                    presenter.setEnemyDefault();
                                                                     setTextEnemyHealth();
                                                                     image_enemy.setImageResource(resId_default);
                                                                     image_enemy.setVisibility(View.VISIBLE);
@@ -420,9 +417,6 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                                                     image_enemy.startAnimation(animation_enemy_emerge);
                                                                     progress_enemy.setProgress(100);
                                                                     progress_enemy.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.green)));
-                                                                    presenter.setEnemyHealth(presenter.getEnemyHealthArr());
-                                                                    presenter.setEnemyAttack(presenter.getEnemyAttackArr());
-                                                                    presenter.setEnemyIndex(presenter.getEnemyIndex());
                                                                 }
                                                             }
                                                         });
@@ -448,7 +442,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                         animation_sword_cut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sword_cut);
                         image_sword_cut.startAnimation(animation_sword_cut);
 
-                        progress_enemy.setProgress((int)((double)presenter.getEnemyHealth()/(double)presenter.getEnemyHealthArr()*100.0));
+                        progress_enemy.setProgress((int)((double)presenter.getEnemyHealth()/(double)presenter.getEnemyHealthDefault()*100.0));
                         if(progress_enemy.getProgress() < 30)
                             progress_enemy.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
                         else if(progress_enemy.getProgress() < 60)
@@ -468,7 +462,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                             public void run() {
                                                 presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
                                                 setTextMyHealth();
-                                                int resId_attack = getResources().getIdentifier(enemy_attack_id[presenter.getEnemyIndex()], "drawable", packName);
+                                                int resId_attack = getResources().getIdentifier(attack_1[presenter.getEnemyIndex()], "drawable", packName);
                                                 image_enemy.setImageResource(resId_attack);
                                                 animation_enemy_attack = null;
                                                 animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
@@ -492,7 +486,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                         runOnUiThread(new Runnable(){
                                             @Override
                                             public void run() {
-                                                int resId_default = getResources().getIdentifier(enemy_default_id[presenter.getEnemyIndex()], "drawable", packName);
+                                                int resId_default = getResources().getIdentifier(default_1[presenter.getEnemyIndex()], "drawable", packName);
                                                 image_enemy.setImageResource(resId_default);
                                             }
                                         });
@@ -515,9 +509,10 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         button_stage_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FloorActivity.class);
                 intent.putExtra("point", presenter.getPoint());
                 setResult(RESULT_OK, intent);
+                finishActivity(1);
                 finish();
             }
         });

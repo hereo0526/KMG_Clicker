@@ -69,7 +69,7 @@ public class ReinActivity extends AppCompatActivity {
         button_next_level.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(presenter.getPoint() > presenter.getLevelNeed()){
+                if(presenter.getPoint() >= presenter.getLevelNeed()){
                     presenter.setPoint(presenter.getPoint()-presenter.getLevelNeed());
                     setTextPoint();
                     presenter.setIndexLevel(presenter.getIndexLevel()+1);
@@ -83,7 +83,8 @@ public class ReinActivity extends AppCompatActivity {
         button_rein.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(presenter.getPoint() > presenter.getReinNeed()){
+                if(presenter.getPoint() >=
+                        presenter.getReinNeed()){
                     presenter.setPoint(presenter.getPoint()-presenter.getReinNeed());
                     setTextPoint();
                     presenter.setIndexRein(presenter.getIndexRein()+1);

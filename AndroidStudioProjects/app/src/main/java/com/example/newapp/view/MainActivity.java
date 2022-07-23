@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FloorActivity.class);
+                intent.putExtra("point", presenter.getPoint());
                 intent.putExtra("weapon_level", presenter.getInc());
                 startActivityForResult(intent, 1);
             }
