@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(requestCode == 1){
             if(resultCode == RESULT_OK){
-                presenter.setPoint(presenter.getPoint()+intent.getIntExtra("point", presenter.getPoint()));
+                presenter.setPoint(intent.getIntExtra("point", presenter.getPoint()));
                 setTextPoint();
             }
         }

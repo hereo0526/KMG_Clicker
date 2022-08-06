@@ -27,18 +27,20 @@ public class FightModel {
 
     private int clear = 0;
 
-    private int index_stage = 1;
 
-    int health_1[]  = {10, 20, 30};
-    int attack_1[]  = {2, 3, 5};
+    int health_1[]  = {20, 40, 30};
+    int attack_1[]  = {4, 8, 5};
 
-    int health_2[] = {20, 40, 60};
-    int attack_2[] = {3, 4, 6};
+    int health_2[] = {60, 120, 60};
+    int attack_2[] = {8, 12, 6};
 
-    int health_3[] = {30, 50, 80};
-    int attack_3[] = {3, 4, 6};
+    int health_3[] = {160, 200, 80};
+    int attack_3[] = {15, 25, 6};
 
-    int point[] = {0, 1, 3, 5, 10};
+    int health_4[] = {240, 300, 80};
+    int attack_4[] = {30, 40, 6};
+
+    int point[] = {0, 1, 2, 4, 10};
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 
@@ -92,15 +94,8 @@ public class FightModel {
         this.crit_ratio_need = crit_ratio_need;
     }
 
-    public int  getPoint(){
+    public int  getPoint(int index_stage){
         return this.point[index_stage];
-    }
-
-    public int  getIndexStage(){
-        return this.index_stage;
-    }
-    public void setIndexStage(int index_stage){
-        this.index_stage = index_stage;
     }
 
     public int getMyHealth(){
@@ -123,7 +118,7 @@ public class FightModel {
     public void setEnemyHealth(int enemy_health){
         this.enemy_health = enemy_health;
     }
-    public int getEnemyHealthDefault(){
+    public int getEnemyHealthDefault(int index_stage){
         switch (index_stage){
             case 1:
                 return health_1[index_enemy];
@@ -131,6 +126,8 @@ public class FightModel {
                 return health_2[index_enemy];
             case 3:
                 return health_3[index_enemy];
+            case 4:
+                return health_4[index_enemy];
             default:
                 return 0;
         }
@@ -142,7 +139,7 @@ public class FightModel {
     public void setEnemyAttack(int enemyAttack){
         this.enemy_attack = enemyAttack;
     }
-    public int getEnemyAttackDefault(){
+    public int getEnemyAttackDefault(int index_stage){
         switch (index_stage){
             case 1:
                 return attack_1[index_enemy];
@@ -150,6 +147,8 @@ public class FightModel {
                 return attack_2[index_enemy];
             case 3:
                 return attack_3[index_enemy];
+            case 4:
+                return attack_4[index_enemy];
             default:
                 return 0;
         }
@@ -162,7 +161,7 @@ public class FightModel {
         this.index_enemy = enemy_index;
     }
 
-    public void setEnemyDefault(){
+    public void setEnemyDefault(int index_stage){
         switch (index_stage){
             case 1:
                 this.enemy_health = health_1[index_enemy];
@@ -175,6 +174,13 @@ public class FightModel {
             case 3:
                 this.enemy_health = health_3[index_enemy];
                 this.enemy_attack = attack_3[index_enemy];
+                break;
+            case 4:
+                this.enemy_health = health_4[index_enemy];
+                this.enemy_attack = attack_4[index_enemy];
+                break;
+            default:
+                break;
         }
     }
 

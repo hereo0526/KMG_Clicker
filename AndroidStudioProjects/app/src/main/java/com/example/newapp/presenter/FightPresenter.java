@@ -57,15 +57,8 @@ public class FightPresenter {
         model.setCritRatioNeed(i);
     }
 
-    public int  getPoint(){
-        return model.getPoint();
-    }
-
-    public int  getIndexStage(){
-        return model.getIndexStage();
-    }
-    public void setIndexStage(int i){
-        model.setIndexStage(i);
+    public int  getPoint(int i){
+        return model.getPoint(i);
     }
 
     public void addScoreCrit(){
@@ -95,8 +88,8 @@ public class FightPresenter {
     public void setEnemyHealth(int i){
         model.setEnemyHealth(i);
     }
-    public int getEnemyHealthDefault(){
-        return model.getEnemyHealthDefault();
+    public int getEnemyHealthDefault(int i){
+        return model.getEnemyHealthDefault(i);
     }
 
     public int getEnemyAttack(){
@@ -105,12 +98,9 @@ public class FightPresenter {
     public void setEnemyAttack(int i){
         model.setEnemyAttack(i);
     }
-    public int getEnemyAttackDefault(){
-        return model.getEnemyHealthDefault();
-    }
 
-    public void setEnemyDefault(){
-        model.setEnemyDefault();
+    public void setEnemyDefault(int i){
+        model.setEnemyDefault(i);
     }
 
     public int getEnemyIndex(){
