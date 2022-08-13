@@ -28,19 +28,22 @@ public class FightModel {
     private int clear = 0;
 
 
-    int health_1[]  = {20, 40, 30};
-    int attack_1[]  = {4, 8, 5};
+    int health_1[]  = {20, 40, 0};
+    int attack_1[]  = {4, 6, 0};
 
-    int health_2[] = {60, 120, 60};
-    int attack_2[] = {8, 12, 6};
+    int health_2[] = {60, 120, 0};
+    int attack_2[] = {8, 12, 0};
 
-    int health_3[] = {160, 200, 80};
-    int attack_3[] = {15, 25, 6};
+    int health_3[] = {160, 200, 0};
+    int attack_3[] = {15, 25, 0};
 
-    int health_4[] = {240, 300, 80};
-    int attack_4[] = {30, 40, 6};
+    int health_4[] = {240, 300, 0};
+    int attack_4[] = {20, 30, 0};
 
-    int point[] = {0, 1, 2, 4, 10};
+    int health_5[] = {400, 600, 0};
+    int attack_5[] = {30, 40, 0};
+
+    int point[] = {0, 1, 2, 4, 6, 10};
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 
@@ -128,6 +131,8 @@ public class FightModel {
                 return health_3[index_enemy];
             case 4:
                 return health_4[index_enemy];
+            case 5:
+                return health_5[index_enemy];
             default:
                 return 0;
         }
@@ -149,6 +154,8 @@ public class FightModel {
                 return attack_3[index_enemy];
             case 4:
                 return attack_4[index_enemy];
+            case 5:
+                return attack_5[index_enemy];
             default:
                 return 0;
         }
@@ -178,6 +185,10 @@ public class FightModel {
             case 4:
                 this.enemy_health = health_4[index_enemy];
                 this.enemy_attack = attack_4[index_enemy];
+                break;
+            case 5:
+                this.enemy_health = health_5[index_enemy];
+                this.enemy_attack = attack_5[index_enemy];
                 break;
             default:
                 break;

@@ -199,7 +199,7 @@
         app:layout_constraintRight_toRightOf="parent"
         />
     <ImageView
-        android:id="@+id/image_stage_clear"
+        android:id="@+id/image_stage_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.9"
@@ -211,7 +211,7 @@
         app:layout_constraintRight_toRightOf="parent"
         />
     <TextView
-        android:id="@+id/text_clear"
+        android:id="@+id/text_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="승리"
@@ -219,7 +219,7 @@
         android:textColor="@color/black"
         android:layout_marginTop="130dp"
         android:textAllCaps="true"
-        app:layout_constraintTop_toTopOf="@id/image_stage_clear"
+        app:layout_constraintTop_toTopOf="@id/image_stage_finish"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
@@ -232,12 +232,12 @@
         android:textColor="@color/black"
         android:layout_marginTop="50dp"
         android:textAllCaps="true"
-        app:layout_constraintTop_toBottomOf="@id/text_clear"
+        app:layout_constraintTop_toBottomOf="@id/text_finish"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
     <android.widget.Button
-        android:id="@+id/button_stage_clear"
+        android:id="@+id/button_stage_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="나가기"

@@ -31,6 +31,8 @@ public class FloorActivity extends AppCompatActivity {
     private Button button_stage1;
     private Button button_stage2;
     private Button button_stage3;
+    private Button button_stage4;
+    private Button button_stage5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class FloorActivity extends AppCompatActivity {
         button_stage1 = findViewById(R.id.button_stage1);
         button_stage2 = findViewById(R.id.button_stage2);
         button_stage3 = findViewById(R.id.button_stage3);
+        button_stage4 = findViewById(R.id.button_stage4);
+        button_stage5 = findViewById(R.id.button_stage5);
 
         Intent intent = getIntent();
         presenter.setPoint(intent.getIntExtra("point", presenter.getPoint()));
@@ -81,6 +85,24 @@ public class FloorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FightActivity.class);
                 intent.putExtra("stage_level", 3);
+                intent.putExtra("weapon_level", presenter.getInc());
+                startActivityForResult(intent, 2);
+            }
+        });
+        button_stage4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FightActivity.class);
+                intent.putExtra("stage_level", 4);
+                intent.putExtra("weapon_level", presenter.getInc());
+                startActivityForResult(intent, 2);
+            }
+        });
+        button_stage5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FightActivity.class);
+                intent.putExtra("stage_level", 5);
                 intent.putExtra("weapon_level", presenter.getInc());
                 startActivityForResult(intent, 2);
             }

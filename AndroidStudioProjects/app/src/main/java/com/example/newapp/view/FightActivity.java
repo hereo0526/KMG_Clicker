@@ -49,10 +49,10 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
     private Button button_upgrade;
     private Button button_attack;
     private Button button_run;
-    private ImageView image_stage_clear;
-    private TextView text_clear;
+    private ImageView image_stage_finish;
+    private TextView text_finish;
     private TextView text_point;
-    private Button button_stage_clear;
+    private Button button_stage_finish;
 
 
 
@@ -68,7 +68,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////
-    int time_count = 5;
+    int time_count = 6;
     private Timer timer;
     public void tempTask() {
         if (timer == null)
@@ -79,7 +79,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setTextTimeText("5");
+                        setTextTimeText("6");
                         if (time_count > 0)
                             time_count--;
                         setTextTimeText(Integer.toString(time_count));
@@ -124,23 +124,44 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         progress_my.setProgress(100);
         setTextTimeText("0");
     }
-
+    private char finish = '0';
     public void stageClear(){
         button_upgrade.setEnabled(false);
         button_attack.setEnabled(false);
         button_fight.setEnabled(false);
         button_run.setEnabled(false);
 
-        image_stage_clear.bringToFront();
-        text_clear.bringToFront();
+        image_stage_finish.bringToFront();
+        text_finish.bringToFront();
         text_point.bringToFront();
-        button_stage_clear.bringToFront();
+        button_stage_finish.bringToFront();
+
+        text_finish.setText("승리");
+        finish = 'C';
 
         setTextPoint();
-        image_stage_clear.setVisibility(View.VISIBLE);
-        text_clear.setVisibility(View.VISIBLE);
+        image_stage_finish.setVisibility(View.VISIBLE);
+        text_finish.setVisibility(View.VISIBLE);
         text_point.setVisibility(View.VISIBLE);
-        button_stage_clear.setVisibility(View.VISIBLE);
+        button_stage_finish.setVisibility(View.VISIBLE);
+    }
+    public void stageFail(){
+        button_upgrade.setEnabled(false);
+        button_attack.setEnabled(false);
+        button_fight.setEnabled(false);
+        button_run.setEnabled(false);
+
+        image_stage_finish.bringToFront();
+        text_finish.bringToFront();
+        text_point.bringToFront();
+        button_stage_finish.bringToFront();
+
+        text_finish.setText("패배");
+        finish = 'F';
+
+        image_stage_finish.setVisibility(View.VISIBLE);
+        text_finish.setVisibility(View.VISIBLE);
+        button_stage_finish.setVisibility(View.VISIBLE);
     }
     ////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,10 +201,10 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         button_upgrade  = findViewById(R.id.button_upgrade);
         button_attack   = findViewById(R.id.button_attack);
         button_run      = findViewById(R.id.button_run);
-        image_stage_clear  = findViewById(R.id.image_stage_clear);
-        text_clear         = findViewById(R.id.text_clear);
-        text_point         = findViewById(R.id.text_point);
-        button_stage_clear = findViewById(R.id.button_stage_clear);
+        image_stage_finish  = findViewById(R.id.image_stage_finish);
+        text_finish         = findViewById(R.id.text_finish);
+        text_point          = findViewById(R.id.text_point);
+        button_stage_finish = findViewById(R.id.button_stage_finish);
 
         image_sword_cut.setVisibility(View.INVISIBLE);
         image_click.setVisibility(View.INVISIBLE);
@@ -191,13 +212,13 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         button_attack.setVisibility(View.INVISIBLE);
         button_upgrade.setVisibility(View.INVISIBLE);
 
-        image_stage_clear.setVisibility(View.INVISIBLE);
-        text_clear.setVisibility(View.INVISIBLE);
+        image_stage_finish.setVisibility(View.INVISIBLE);
+        text_finish.setVisibility(View.INVISIBLE);
         text_point.setVisibility(View.INVISIBLE);
-        button_stage_clear.setVisibility(View.INVISIBLE);
+        button_stage_finish.setVisibility(View.INVISIBLE);
 
-        String[] default_1 = {"@drawable/wolf", "@drawable/boss1_default"};
-        String[] attack_1  = {"@drawable/wolf", "@drawable/boss1_attack"};
+        String[] id_default_1 = {"@drawable/wolf", "@drawable/boss1_default"};
+        String[] id_motion_1  = {"@drawable/wolf", "@drawable/boss1_attack"};
         String packName = this.getPackageName();
 
 
@@ -254,7 +275,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                 setTextScore();
                 presenter.setUpFlag(0);
                 presenter.setClickAllow(1);
-                time_count = 5;
+                time_count = 6;
                 presenter.setUpChoose(1);
                 tempTask();
                 presenter.setUpFlag(1);
@@ -281,51 +302,68 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(presenter.getUpFlag() == 1) {
-                    if (presenter.getUpChoose() == 1){
+                    if (presenter.getUpChoose() == 1) {
                         new Timer().schedule(
                                 new TimerTask() {
                                     @Override
                                     public void run() {
-                                        runOnUiThread(new Runnable(){
+                                        runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
-                                                setTextMyHealth();
-                                                int resId_attack = getResources().getIdentifier(attack_1[presenter.getEnemyIndex()], "drawable", packName);
+                                                int resId_attack = getResources().getIdentifier(id_motion_1[presenter.getEnemyIndex()], "drawable", packName);
                                                 image_enemy.setImageResource(resId_attack);
                                                 animation_enemy_attack = null;
                                                 animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
                                                 image_enemy.startAnimation(animation_enemy_attack);
+                                                if(presenter.getMyHealth() - presenter.getEnemyAttack() <= 0){
+                                                    presenter.setMyHealth(0);
+                                                    setTextMyHealth();
+                                                    progress_my.setProgress(presenter.getMyHealth());
+                                                    new Timer().schedule(
+                                                            new TimerTask() {
+                                                                @Override
+                                                                public void run() {
+                                                                    stageFail();
+                                                                }
+                                                            },
+                                                            600
+                                                    );
+                                                }
+                                                else {
+                                                    presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
+                                                    setTextMyHealth();
+                                                    progress_my.setProgress(presenter.getMyHealth());
+                                                    new Timer().schedule(
+                                                            new TimerTask() {
+                                                                @Override
+                                                                public void run() {
+                                                                    runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+                                                                            int resId_default = getResources().getIdentifier(id_default_1[presenter.getEnemyIndex()], "drawable", packName);
+                                                                            image_enemy.setImageResource(resId_default);
+                                                                            Intent intent = new Intent(getApplicationContext(), UpgradeActivity.class);
+                                                                            intent.putExtra("score", presenter.getScore());
+                                                                            intent.putExtra("inc", presenter.getInc());
+                                                                            intent.putExtra("inc_need", presenter.getIncNeed());
+                                                                            intent.putExtra("crit_ratio", presenter.getCritRatio());
+                                                                            intent.putExtra("crit_ratio_need", presenter.getCritRatioNeed());
+                                                                            startActivityForResult(intent, 4);
+                                                                            button_fight.setVisibility(View.VISIBLE);
+                                                                        }
+                                                                    });
+                                                                }
+                                                            },
+                                                            600
+                                                    );
+                                                    presenter.setUpChoose(0);
+                                                }
                                             }
                                         });
                                     }
                                 },
                                 1000
                         );
-                        new Timer().schedule(
-                                new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        runOnUiThread(new Runnable(){
-                                            @Override
-                                            public void run() {
-                                                int resId_default = getResources().getIdentifier(default_1[presenter.getEnemyIndex()], "drawable", packName);
-                                                image_enemy.setImageResource(resId_default);
-                                                Intent intent = new Intent(getApplicationContext(), UpgradeActivity.class);
-                                                intent.putExtra("score", presenter.getScore());
-                                                intent.putExtra("inc", presenter.getInc());
-                                                intent.putExtra("inc_need", presenter.getIncNeed());
-                                                intent.putExtra("crit_ratio", presenter.getCritRatio());
-                                                intent.putExtra("crit_ratio_need", presenter.getCritRatioNeed());
-                                                startActivityForResult(intent,4);
-                                                button_fight.setVisibility(View.VISIBLE);
-                                            }
-                                        });
-                                    }
-                                },
-                                1600
-                        );
-                        presenter.setUpChoose(0);
                     }
                     else{
                         Intent intent = new Intent(FightActivity.this, UpgradeActivity.class);
@@ -337,8 +375,8 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                         startActivityForResult(intent, 4);
                         button_fight.setVisibility(View.VISIBLE);
                     }
-                    button_attack.setVisibility(View.INVISIBLE);
                 }
+                button_attack.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -397,7 +435,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                                                     stageClear();
                                                                 }
                                                                 else {
-                                                                    int resId_default = getResources().getIdentifier(default_1[presenter.getEnemyIndex()], "drawable", packName);
+                                                                    int resId_default = getResources().getIdentifier(id_default_1[presenter.getEnemyIndex()], "drawable", packName);
                                                                     presenter.setEnemyDefault(index_stage);
                                                                     setTextEnemyHealth();
                                                                     image_enemy.setImageResource(resId_default);
@@ -424,6 +462,8 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                     else{
                         presenter.setEnemyHealth(presenter.getEnemyHealth() - presenter.getMyAttack());
                         setTextEnemyHealth();
+                        presenter.setScore(0);
+                        setTextScore();
                         /////////////////
                         animation_enemy_hit = null;
                         animation_enemy_hit = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_hit);
@@ -444,46 +484,66 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                 new TimerTask() {
                                     @Override
                                     public void run() {
-                                        button_attack.setVisibility(View.INVISIBLE);
-                                        button_upgrade.setVisibility(View.INVISIBLE);
-                                        presenter.setScore(0);
                                         runOnUiThread(new Runnable(){
                                             @Override
                                             public void run() {
-                                                presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
-                                                setTextMyHealth();
-                                                int resId_attack = getResources().getIdentifier(attack_1[presenter.getEnemyIndex()], "drawable", packName);
-                                                image_enemy.setImageResource(resId_attack);
-                                                animation_enemy_attack = null;
-                                                animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
-                                                image_enemy.startAnimation(animation_enemy_attack);
-                                                setTextScore();
-                                                progress_my.setProgress(presenter.getMyHealth());
-                                                if(progress_my.getProgress() < 30)
-                                                    progress_my.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                                                else if(progress_my.getProgress() < 60)
-                                                    progress_my.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.yellow)));
+                                                if(presenter.getMyHealth() - presenter.getEnemyAttack() <= 0){
+                                                    presenter.setMyHealth(0);
+                                                    setTextMyHealth();
+                                                    progress_my.setProgress(presenter.getMyHealth());
+                                                    int resId_attack = getResources().getIdentifier(id_motion_1[presenter.getEnemyIndex()], "drawable", packName);
+                                                    image_enemy.setImageResource(resId_attack);
+                                                    animation_enemy_attack = null;
+                                                    animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
+                                                    image_enemy.startAnimation(animation_enemy_attack);
+                                                    new Timer().schedule(
+                                                            new TimerTask() {
+                                                                @Override
+                                                                public void run() {
+                                                                    stageFail();
+                                                                }
+                                                            },
+                                                            600
+                                                    );
+                                                }
+                                                else {
+                                                    presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
+                                                    setTextMyHealth();
+                                                    progress_my.setProgress(presenter.getMyHealth());
+
+                                                    int resId_attack = getResources().getIdentifier(id_motion_1[presenter.getEnemyIndex()], "drawable", packName);
+                                                    image_enemy.setImageResource(resId_attack);
+                                                    animation_enemy_attack = null;
+                                                    animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
+                                                    image_enemy.startAnimation(animation_enemy_attack);
+
+                                                    if (progress_my.getProgress() < 30)
+                                                        progress_my.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                                                    else if (progress_my.getProgress() < 60)
+                                                        progress_my.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.yellow)));
+                                                    new Timer().schedule(
+                                                            new TimerTask() {
+                                                                @Override
+                                                                public void run() {
+                                                                    runOnUiThread(new Runnable(){
+                                                                        @Override
+                                                                        public void run() {
+                                                                            int resId_default = getResources().getIdentifier(id_default_1[presenter.getEnemyIndex()], "drawable", packName);
+                                                                            image_enemy.setImageResource(resId_default);
+                                                                        }
+                                                                    });
+                                                                }
+                                                            },
+                                                            600
+                                                    );
+                                                }
                                             }
                                         });
                                     }
                                 },
                                 1000
                         );
-                        new Timer().schedule(
-                                new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        runOnUiThread(new Runnable(){
-                                            @Override
-                                            public void run() {
-                                                int resId_default = getResources().getIdentifier(default_1[presenter.getEnemyIndex()], "drawable", packName);
-                                                image_enemy.setImageResource(resId_default);
-                                            }
-                                        });
-                                    }
-                                },
-                                1600
-                        );
+
                         /////////////////적이 공격하는 모션
                     }
                 }
@@ -496,13 +556,16 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
 
-        button_stage_clear.setOnClickListener(new View.OnClickListener() {
+        button_stage_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FloorActivity.class);
-                intent.putExtra("point", presenter.getPoint(index_stage));
-                setResult(RESULT_OK, intent);
-                finishActivity(1);
+                if(finish == 'C') {
+                    Intent intent = new Intent(getApplicationContext(), FloorActivity.class);
+                    intent.putExtra("point", presenter.getPoint(index_stage));
+                    setResult(RESULT_OK, intent);
+                    finishActivity(1);
+                    finish();
+                }
                 finish();
             }
         });

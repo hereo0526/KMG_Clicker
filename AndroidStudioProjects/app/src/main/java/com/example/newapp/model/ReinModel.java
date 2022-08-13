@@ -5,7 +5,7 @@ public class ReinModel {
     int point = 0;
     int index_level = 1;
     int index_rein = 1;
-    int next_level_need[] = {0, 10, 30, 80};
+    int next_level_need[] = {0, 1, 3, 80};
     int rein_need[] = {0, 2, 5, 9, 15};
     /////////////////////////////////////////////////////////////////////////
 
