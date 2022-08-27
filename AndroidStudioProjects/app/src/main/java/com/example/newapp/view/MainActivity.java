@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), FloorActivity.class);
                 intent.putExtra("point", presenter.getPoint());
                 intent.putExtra("weapon_level", presenter.getInc());
+                intent.putExtra("my_health", presenter.getMyHealth());
                 startActivityForResult(intent, 1);
             }
         });
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 presenter.setPoint(intent.getIntExtra("point", presenter.getPoint()));
                 presenter.setInc(intent.getIntExtra("weapon_level", presenter.getInc()));
+                presenter.setMyHealth(intent.getIntExtra("my_health", presenter.getMyHealth()));
                 setTextPoint();
             }
         }

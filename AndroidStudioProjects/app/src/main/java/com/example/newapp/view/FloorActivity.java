@@ -23,8 +23,6 @@ import android.os.Handler;
 public class FloorActivity extends AppCompatActivity {
     FloorPresenter presenter = new FloorPresenter();
 
-    private boolean scrollStop;
-
     private ScrollView scroll_view;
     private Button button_back;
     private TextView text_point;
@@ -51,6 +49,7 @@ public class FloorActivity extends AppCompatActivity {
         Intent intent = getIntent();
         presenter.setPoint(intent.getIntExtra("point", presenter.getPoint()));
         presenter.setInc(intent.getIntExtra("weapon_level", presenter.getInc()));
+        presenter.setMyHealth(intent.getIntExtra("my_health", presenter.getMyHealth()));
         setTextPoint();
 
         button_back.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +67,7 @@ public class FloorActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), FightActivity.class);
                 intent.putExtra("stage_level", 1);
                 intent.putExtra("weapon_level", presenter.getInc());
+                intent.putExtra("my_health", presenter.getMyHealth());
                 startActivityForResult(intent, 2);
             }
         });
@@ -77,6 +77,7 @@ public class FloorActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), FightActivity.class);
                 intent.putExtra("stage_level", 2);
                 intent.putExtra("weapon_level", presenter.getInc());
+                intent.putExtra("my_health", presenter.getMyHealth());
                 startActivityForResult(intent, 2);
             }
         });
@@ -86,6 +87,7 @@ public class FloorActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), FightActivity.class);
                 intent.putExtra("stage_level", 3);
                 intent.putExtra("weapon_level", presenter.getInc());
+                intent.putExtra("my_health", presenter.getMyHealth());
                 startActivityForResult(intent, 2);
             }
         });
@@ -95,6 +97,7 @@ public class FloorActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), FightActivity.class);
                 intent.putExtra("stage_level", 4);
                 intent.putExtra("weapon_level", presenter.getInc());
+                intent.putExtra("my_health", presenter.getMyHealth());
                 startActivityForResult(intent, 2);
             }
         });
@@ -104,6 +107,7 @@ public class FloorActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), FightActivity.class);
                 intent.putExtra("stage_level", 5);
                 intent.putExtra("weapon_level", presenter.getInc());
+                intent.putExtra("my_health", presenter.getMyHealth());
                 startActivityForResult(intent, 2);
             }
         });
@@ -113,7 +117,8 @@ public class FloorActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         if(requestCode == 2){
             if(resultCode == RESULT_OK){
-                presenter.setPoint(presenter.getPoint()+intent.getIntExtra("point", presenter.getPoint()));
+                presenter.setPoint(presenter.getPoint()+intent.getIntExtra("point", 0));
+                presenter.setMyHealth(intent.getIntExtra("my_health", 100));
                 setTextPoint();
             }
         }

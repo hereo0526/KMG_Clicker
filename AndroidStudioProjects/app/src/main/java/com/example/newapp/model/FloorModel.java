@@ -5,6 +5,7 @@ public class FloorModel {
 
     private int inc = 0;
     private int point = 0;
+    private int my_health = 0;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -20,5 +21,12 @@ public class FloorModel {
     }
     public void setPoint(int point){
         this.point = point;
+    }
+
+    public int  getMyHealth(){
+        return this.my_health;
+    }
+    public void setMyHealth(int my_health){
+        this.my_health = my_health;
     }
 }

@@ -44,6 +44,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
     private TextView score_text;
     private TextView critical_text;
     private ProgressBar progress_my;
+    private TextView hp_dec_text;
     private TextView my_health;
     private Button button_fight;
     private Button button_upgrade;
@@ -114,6 +115,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         time_count = 0;
         image_enemy.setVisibility(View.VISIBLE);
         image_click.setVisibility(View.INVISIBLE);
+        hp_dec_text.setVisibility(View.INVISIBLE);
         button_fight.setVisibility(View.VISIBLE);
         button_attack.setVisibility(View.INVISIBLE);
         button_upgrade.setVisibility(View.INVISIBLE);
@@ -196,6 +198,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         score_text      = findViewById(R.id.score_text);
         critical_text   = findViewById(R.id.critical_text);
         progress_my     = findViewById(R.id.progress_my);
+        hp_dec_text     = findViewById(R.id.hp_dec_text);
         my_health       = findViewById(R.id.my_health);
         button_fight    = findViewById(R.id.button_fight);
         button_upgrade  = findViewById(R.id.button_upgrade);
@@ -229,6 +232,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         Intent intent = getIntent();
         index_stage = intent.getIntExtra("stage_level",1);
         presenter.setInc(intent.getIntExtra("weapon_level", presenter.getInc()));
+        presenter.setMyHealth(intent.getIntExtra("my_health", presenter.getMyHealth()));
         presenter.setEnemyDefault(index_stage);
         setTextAll();
 
@@ -238,6 +242,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("my_health", presenter.getMyHealth());
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -315,6 +320,13 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                                 animation_enemy_attack = null;
                                                 animation_enemy_attack = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.enemy_attack);
                                                 image_enemy.startAnimation(animation_enemy_attack);
+                                                if(presenter.getMyHealth() - presenter.getEnemyAttack() <= 0)
+                                                    hp_dec_text.setText("-"+presenter.getMyHealth());
+                                                else
+                                                    hp_dec_text.setText("-"+presenter.getEnemyAttack());
+                                                animation_critical = null;
+                                                animation_critical = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.critical);
+                                                hp_dec_text.startAnimation(animation_critical);
                                                 if(presenter.getMyHealth() - presenter.getEnemyAttack() <= 0){
                                                     presenter.setMyHealth(0);
                                                     setTextMyHealth();
@@ -410,6 +422,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                         animation_sword_cut = null;
                         animation_sword_cut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.sword_cut);
                         image_sword_cut.startAnimation(animation_sword_cut);
+
                         presenter.setEnemyIndex(presenter.getEnemyIndex()+1);
                         if(presenter.getEnemyIndex() == presenter.getMax()){
                             presenter.setDownFlag(1);
@@ -488,6 +501,10 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                             @Override
                                             public void run() {
                                                 if(presenter.getMyHealth() - presenter.getEnemyAttack() <= 0){
+                                                    hp_dec_text.setText("-"+presenter.getMyHealth());
+                                                    animation_critical = null;
+                                                    animation_critical = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.critical);
+                                                    hp_dec_text.startAnimation(animation_critical);
                                                     presenter.setMyHealth(0);
                                                     setTextMyHealth();
                                                     progress_my.setProgress(presenter.getMyHealth());
@@ -507,6 +524,12 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                                     );
                                                 }
                                                 else {
+                                                    hp_dec_text.setVisibility(View.VISIBLE);
+                                                    hp_dec_text.setText("-"+presenter.getEnemyAttack());
+                                                    animation_critical = null;
+                                                    animation_critical = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.critical);
+                                                    hp_dec_text.startAnimation(animation_critical);
+                                                    hp_dec_text.setVisibility(View.INVISIBLE);
                                                     presenter.setMyHealth(presenter.getMyHealth() - presenter.getEnemyAttack());
                                                     setTextMyHealth();
                                                     progress_my.setProgress(presenter.getMyHealth());
@@ -524,7 +547,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                                     new Timer().schedule(
                                                             new TimerTask() {
                                                                 @Override
-                                                                public void run() {
+                                                                public void run() { 
                                                                     runOnUiThread(new Runnable(){
                                                                         @Override
                                                                         public void run() {

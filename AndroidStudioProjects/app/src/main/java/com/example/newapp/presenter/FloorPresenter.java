@@ -18,4 +18,11 @@ public class FloorPresenter {
     public void setPoint(int i){
         model.setPoint(i);
     }
+
+    public int  getMyHealth(){
+        return model.getMyHealth();
+    }
+    public void setMyHealth(int i){
+        model.setMyHealth(i);
+    }
 }
