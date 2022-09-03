@@ -123,7 +123,6 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         progress_enemy.getIndeterminateDrawable().setColorFilter(
                 getResources().getColor(R.color.green),
                 android.graphics.PorterDuff.Mode.SRC_IN);
-        progress_my.setProgress(100);
         setTextTimeText("0");
     }
     private char finish = '0';
@@ -233,6 +232,12 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
         index_stage = intent.getIntExtra("stage_level",1);
         presenter.setInc(intent.getIntExtra("weapon_level", presenter.getInc()));
         presenter.setMyHealth(intent.getIntExtra("my_health", presenter.getMyHealth()));
+        progress_my.setProgress(presenter.getMyHealth());
+        if (progress_my.getProgress() < 30)
+            progress_my.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+        else if (progress_my.getProgress() < 60)
+            progress_my.setProgressTintList(ColorStateList.valueOf(getResources().getColor(R.color.yellow)));
+
         presenter.setEnemyDefault(index_stage);
         setTextAll();
 
@@ -517,7 +522,12 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                                                             new TimerTask() {
                                                                 @Override
                                                                 public void run() {
-                                                                    stageFail();
+                                                                    runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+                                                                            stageFail();
+                                                                        }
+                                                                    });
                                                                 }
                                                             },
                                                             600
@@ -585,6 +595,7 @@ public class FightActivity<clickAllow> extends AppCompatActivity {
                 if(finish == 'C') {
                     Intent intent = new Intent(getApplicationContext(), FloorActivity.class);
                     intent.putExtra("point", presenter.getPoint(index_stage));
+                    intent.putExtra("my_health", presenter.getMyHealth());
                     setResult(RESULT_OK, intent);
                     finishActivity(1);
                     finish();
